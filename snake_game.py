@@ -4,8 +4,9 @@ from game_display import GameDisplay
 class SnakeGame:
 
     def __init__(self) -> None:
+        print("hi")
         self.__x = 5
-        self.__y = 5
+        self.ass__y = 5
         self.__key_clicked = None
 
     def read_key(self, key_clicked: Optional[str])-> None:
@@ -25,3 +26,4 @@ class SnakeGame:
 
     def is_over(self) -> bool:
         return False
+
