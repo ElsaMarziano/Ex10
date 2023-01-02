@@ -4,7 +4,7 @@ from game_display import GameDisplay
 class SnakeGame:
 
     def __init__(self) -> None:
-        print("hi")
+        print("hi there")
         self.__x = 5
         self.ass__y = 5
         self.__key_clicked = None
