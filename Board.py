@@ -1,3 +1,4 @@
+import Wall
 class Board:
     def __init__(self,width= 40,height = 30 ,apples = 3, walls = 2 ):# need to add debug and round?
         self.board = [["_" for column in range(width)] for row in range(height)]
@@ -42,7 +43,6 @@ class Board:
             if locations_not_in_board == wall.length:
                 self.wall_list.remove(wall) # remove the wall that all locations not in board
                 # To do check if remove can know the different between walls!
-
 
 
 

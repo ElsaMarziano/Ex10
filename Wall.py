@@ -1,11 +1,11 @@
 class Wall:
     """ class of wall diff"""
 
-    def __init__(self, name, location, movement,length=3,):
+    def __init__(self, name, get_random_wall_data,length=3,): # need to check how we get location and movement(i think its one tuple)
         self.name = name # to know the walls apart
         self.length = length #diff is 3
-        self.location = location #middle location, (x,y)
-        self.movement = movement #"Up","Down","Left","Right"
+        self.location = (get_random_wall_data[0],get_random_wall_data[1]) #middle location, (row,col)
+        self.movement = get_random_wall_data[2] #"Up","Down","Left","Right"
 
     def get_wall_locations(self):
         list_of_locations = [] #  list with 3 tuples (row,col)
@@ -25,9 +25,13 @@ class Wall:
         elif self.movement == "Left":
             self.location = (self.location[0], self.location[1] - 1)
         elif self.movement == "Up":
-            self.location = (self.location[0]+1, self.location[1])
+            self.location = (self.location[0] + 1, self.location[1])
         elif self.movement == "Down":
             self.location = (self.location[0] - 1, self.location[1])
+
+
+
+
 
 
 
