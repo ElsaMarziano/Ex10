@@ -26,3 +26,5 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
 if __name__ == "__main__":
     print("You should run:\n"
           "> python game_display.py")
+    
+# TODO When creating snake, directly give the list of coordinates he's in
