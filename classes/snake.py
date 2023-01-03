@@ -1,5 +1,5 @@
-from constants import *
-from helper import *
+from helper.constants import *
+from helper.helper import *
 
 class Snake:
     def __init__(self, locations: int, color: str):

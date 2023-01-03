@@ -9,3 +9,7 @@ def check_direction(direction: tuple, current_head: tuple, current_neck: tuple):
     """ This function receives a direction and the coordinate in which the object (snake) wants to go,
     and returns weither or not it's possible (returns False if the direction is opposite to that of the snake) """ 
     return make_something_move(direction, current_head) != current_neck
+
+def check_location(height: int, width: int, location: tuple):
+    """ This function returns True if the given location is in the limits of the board """
+    return location[0] < height and location[1] < width
