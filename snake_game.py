@@ -37,9 +37,7 @@ class SnakeGame:
         a =1
 
 
-
-    def draw_board(self, gd: GameDisplay) -> None:
-        
+    def draw_board(self, gd: GameDisplay) -> None: 
         gd.draw_cell(self.__x, self.__y, "blue")
 
 
