@@ -3,6 +3,11 @@ from game_display import GameDisplay
 import math
 from classes.board import  Board
 from classes.snake import Snake
+from game_utils import get_random_apple_data
+from classes.wall import Wall
+from game_utils import get_random_wall_data
+
+
 
 
 class SnakeGame:
@@ -26,6 +31,7 @@ class SnakeGame:
         self.__board = Board()
         self.__snake:Snake = Snake([(self.__board.height -2 ,self.__board.width),(self.__board.height-1,self.__board.width),\
                               (self.__board.height,self.__board.width)])
+        self.__round = 0
 
 
 
@@ -33,13 +39,19 @@ class SnakeGame:
         self.__key_clicked = key_clicked
 
     def update_objects(self,move)-> None:
-        self.__snake.move_snake(move,False)
-        self.__board
-        # advance snake
-        # advance wall
-        # check what happen if snake eat apple and wall hit snake
-        # check eat apple
-        # update score
+        self.__snake.move_snake(move,False)        # advance snake
+        self.__board.move_walls_in_board() # advance wall
+        # check if dead
+        # if snake eat apple
+        # self.__snake.growing()
+        # self.add_score()
+        self.__board.add_apple(get_random_apple_data())
+        if self.__round % 2 == 0:
+            self.__board.add_wall(Wall())
+        self.__board.clean_board() # clean the board
+        self.__board.place_walls()
+        self.__board.place_snake(self.__snake.location)
+        # add the apples
         # add apple
         # add wall
     def add_score(self):
@@ -52,7 +64,7 @@ class SnakeGame:
         gd.draw_cell(self.__x, self.__y, "blue")
 
     def end_round(self) -> None:
-        pass
+        self.__round += 1
 
     def is_over(self) -> bool:
         return self.__is_over

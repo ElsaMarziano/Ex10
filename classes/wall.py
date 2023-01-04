@@ -5,10 +5,8 @@ from helper.helper import make_something_move
 class Wall:
     """ class of wall default"""
 
-    def __init__(self, name: str, length: int = 3): # need to check how we get location and movement(i think its one tuple)
+    def __init__(self,length: int = 3): # need to check how we get location and movement(i think its one tuple)
         WALL_DATA = get_random_wall_data()
-        # TODO Check if we need to tell the walls apart
-        self.name = name # to tell the walls apart
         self.length = length # default is 3
         self.location = (WALL_DATA[0], WALL_DATA[1]) # middle location, (row,col)
         self.movement = WALL_DATA[2] #"Up","Down","Left","Right"
