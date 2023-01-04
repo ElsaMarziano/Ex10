@@ -43,7 +43,11 @@ class Board:
         """ Change coordinates of every wall on the list """
         for wall in self.wall_list:
             #? Clean board ?
+            old_location = wall.get_wall_locations()
+            for loc in old_location:
+                self.board[old_location[0]][old_location[1]] = "_"
             wall.move_wall()
+
 
 
     def place_walls(self):  # !Remember to move walls in board before the apples
@@ -52,7 +56,7 @@ class Board:
             locations_not_in_board = 0
             wall_list_locations = wall.get_wall_locations()
             for location in wall_list_locations:
-                # TODO Try to do this without locations_not_in_board
+                # TODO Try to do this without locations_not_in_board and check for old loc
                 if check_location(self.height, self.width):
                     self.board[location[0]][location[1]] = "W"
                 else:

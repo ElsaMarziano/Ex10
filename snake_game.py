@@ -47,6 +47,7 @@ class SnakeGame:
             self.__is_over = True
             return
         self.__board.move_walls_in_board() # advance wall
+        self.__board.place_walls()
         # check if dead
         # if snake eat apple
         # self.__snake.growing()
@@ -54,7 +55,6 @@ class SnakeGame:
         self.__board.add_apple(get_random_apple_data())
         if self.__round % 2 == 0:
             self.__board.add_wall(Wall())
-        self.__board.clean_board() # clean the board
         self.__board.place_walls()
         # add the apples
         # add apple
