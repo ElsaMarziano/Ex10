@@ -15,18 +15,26 @@ class SnakeGame:
 # TODO put wall only if round is even
 # TODO think how the game start
 # TODO update how much is left for the snake to grow
+# TODO make str to board
 #
 
-    def __init__(self,width = 4,height = 4,apples = 4,round = -1,debug = None) -> None:
-        self.__x = 0
-        self.__y = 1
+    def __init__(self,width,height,apples,debug) -> None:
+        self.__x = 5
+        self.__y = 5
         self.__key_clicked = None
+        self.__score = 0
+        self.__board = Board()
+        self.__snake:Snake = Snake([(self.__board.height -2 ,self.__board.width),(self.__board.height-1,self.__board.width),\
+                              (self.__board.height,self.__board.width)])
+
 
 
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
 
-    def update_objects(self)-> None:
+    def update_objects(self,move)-> None:
+        self.__snake.move_snake(move,False)
+        self.__board
         # advance snake
         # advance wall
         # check what happen if snake eat apple and wall hit snake
@@ -34,15 +42,15 @@ class SnakeGame:
         # update score
         # add apple
         # add wall
-        a =1
+    def add_score(self):
+        self.__score += int(math.sqrt(self.__snake.get_size()))
+
 
 
     def draw_board(self, gd: GameDisplay) -> None: 
         gd.draw_cell(self.__x, self.__y, "blue")
 
-
     def end_round(self) -> None:
-        # Prepare new board
         pass
 
     def is_over(self) -> bool:
