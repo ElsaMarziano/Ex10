@@ -59,3 +59,4 @@ class Board:
                 
     # For place_walls: maybe go over the locations of each wall, if one of them is in the board get out of the for loop,
     # else continue until we get to the last location and then remove wall
+

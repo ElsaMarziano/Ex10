@@ -27,6 +27,10 @@ class Snake:
         ''' This function returns the coordinates of the head and "neck" of the snake - that is, all of the coordinates
         who will kill the snake if a wall touches them '''
         return self.location[-1:-3:-1]
+
+
+    def get_size(self):
+        return self.__size
     
     def growing(self):
         self.__need_to_grow += 3
