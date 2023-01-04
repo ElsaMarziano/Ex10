@@ -13,6 +13,7 @@ class Board:
         self.max_apples: int = apples  # num of apple that can exist on board
         self.width: int = width 
         self.height: int = height
+        self.apples_location = list()
 
 
 
@@ -35,6 +36,7 @@ class Board:
                 if self.board[location[0]][location[1]] == "_":  # fall on empty place
                     self.apples_on_board += 1
                     self.board[location[0]][location[1]] = "A"
+                    self.apples_location.append((location[0],location[1])) # add to list
 
 
     def move_walls_in_board(self):
@@ -65,6 +67,17 @@ class Board:
     def place_snake(self,locations: list):
         for location in locations:
             self.board[location[0]][location[1]] = "S"
+
+
+
+    def place_apple(self,locations: list):
+        for location in locations:
+            if self.board[location[0]][location[1]] == "_":  # fall on empty place
+                self.apples_on_board += 1
+                self.board[location[0]][location[1]] = "A"
+                self.apples_location.append((location[0], location[1]))  # add to list
+
+
 
     def clean_board(self):
         self.board: list = [["_" for _ in range(self.width)] for _ in range(self.height)]
