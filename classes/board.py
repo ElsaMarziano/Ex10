@@ -4,8 +4,9 @@ from helper.helper import *
 
 class Board:
     # need to add debug and round?
-    def __init__(self, width: int = 40, height: int = 30, apples: int = 3, walls: int = 2):
-        self.board: list = [["_" for _ in range(width)] for _ in range(height)]
+    def __init__(self, snake_locations: list, width: int = 40, height: int = 30, apples: int = 3, walls: int = 2):
+        #TODO do every variable private
+        self.board: list = self.create_board(width, height, snake_locations)
         self.wall_list = list()  # current walls on the board
         self.apples_on_board: int = 0  # current apples on the board
         self.max_walls: int = walls  # num of walls that can exist on board
@@ -13,9 +14,13 @@ class Board:
         self.max_apples: int = apples  # num of apple that can exist on board
         self.width: int = width 
         self.height: int = height
-
-
-
+        
+    def create_board(self, width, height, snake_locations):
+        # Creates initial board
+        my_board = [["_" if (line, col) not in snake_locations else "S" for col in range(width)] for line in range(height)]
+        return my_board
+        
+        
     def add_wall(self, wall: Wall):  # only add wall,not place them
         """ This function adds a new wall to the wall_list """
         if len(self.wall_list) < self.max_walls:

@@ -27,9 +27,9 @@ class SnakeGame:
         self.__y = 5
         self.__key_clicked = None
         self.__score = 0
-        self.__board = Board(args.width, args.height, args.apples, args.walls)
         self.__snake:Snake = Snake([(HEIGHT_SNAKE - 2,WIDTH_SNAKE),(HEIGHT_SNAKE -1,WIDTH_SNAKE),\
                               (HEIGHT_SNAKE,WIDTH_SNAKE)])
+        self.__board = Board(self.__snake.get_location(), args.width, args.height, args.apples, args.walls)
         self.__round = args.rounds
         self.__is_over = False
 
@@ -69,8 +69,11 @@ class SnakeGame:
         
 
     def draw_board(self, gd: GameDisplay) -> None: 
-        for height in enumerate(self.__board.board):
-            for width, color in enumerate(self.__board.board[0]):
+        print(self.__board.board)
+        for height, _ in enumerate(self.__board.board):
+            for width, _ in enumerate(self.__board.board[0]):
+                color = self.__board.board[height][width]
+                print(color)
                 if color != "_":
                     gd.draw_cell(height, width, COLORS[color])
 
