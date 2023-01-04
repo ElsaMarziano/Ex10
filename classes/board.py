@@ -9,9 +9,11 @@ class Board:
         self.wall_list = list()  # current walls on the board
         self.apples_on_board: int = 0  # current apples on the board
         self.max_walls: int = walls  # num of walls that can exist on board
+        # how we transfer the apples on board from board to board? we need another func
         self.max_apples: int = apples  # num of apple that can exist on board
         self.width: int = width 
-        self.height: int = height 
+        self.height: int = height
+
 
 
     def add_wall(self, wall: Wall):  # only add wall,not place them

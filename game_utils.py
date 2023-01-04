@@ -5,7 +5,7 @@ from collections import namedtuple
 
 WIDTH = 40
 HEIGHT = 30
-
+gid =
 UP='Up'
 DOWN='Down'
 RIGHT='Right'
