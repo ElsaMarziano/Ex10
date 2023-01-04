@@ -34,6 +34,9 @@ class Snake:
         who will kill the snake if a wall touches them '''
         return self.location[-1:-3:-1]
 
+    def get_head(self):
+        return self.location[-1]
+
 
     def get_size(self):
         return self.__size

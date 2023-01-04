@@ -12,16 +12,15 @@ from game_utils import get_random_wall_data
 
 class SnakeGame:
 # TODO check how draw cell works
-# TODO check where to put score
 # TODO put defult to all para
 # TODO to add an apple if a wall destroy it
 # TODO check if wall cut snake or kill it
 # TODO check if snake hit limit
-# TODO put wall only if round is even
 # TODO think how the game start
-# TODO update how much is left for the snake to grow
 # TODO make str to board
-#
+# TODO eat apple
+# TODO cut to half, update snake, update board
+
 
     def __init__(self,width,height,apples,debug) -> None:
         self.__x = 5
@@ -48,6 +47,7 @@ class SnakeGame:
             return
         self.__board.move_walls_in_board() # advance wall
         self.__board.place_walls()
+        self.check_collusion(self.__snake.get_head())
         # check if dead
         # if snake eat apple
         # self.__snake.growing()
@@ -63,6 +63,12 @@ class SnakeGame:
         
     def add_score(self):
         self.__score += int(math.sqrt(self.__snake.get_size()))
+
+    def check_collusion(self, head: tuple):
+        if head[0] >= self.__board.height or head[1] >= self.__board.width:
+            self.__is_over = True
+        if self.__board[head[0]][head[1]] == "W":
+            self.__is_over = True
 
 
 
