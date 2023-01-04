@@ -11,23 +11,24 @@ from game_utils import get_random_wall_data
 
 
 class SnakeGame:
-# TODO check how draw cell works
-# TODO put defult to all para
-# TODO to add an apple if a wall destroy it
-# TODO check if wall cut snake or kill it
-# TODO check if snake hit limit
-# TODO think how the game start
-# TODO make str to board
-#
+    #TODO: Start board
+    #TODO Function that adapt our board to the graphic one
+    #TODO Add apple if wall destroys it
+    
+    #TODO Default to all parameters
+    
+
 
     def __init__(self, args) -> None:
+        WIDTH_SNAKE = args.width // 2
+        HEIGHT_SNAKE = args.height //2
         self.__x = 5
         self.__y = 5
         self.__key_clicked = None
         self.__score = 0
         self.__board = Board(args.width, args.height, args.apples, args.walls)
-        self.__snake:Snake = Snake([(self.__board.height -2 ,self.__board.width),(self.__board.height-1,self.__board.width),\
-                              (self.__board.height,self.__board.width)])
+        self.__snake:Snake = Snake([(HEIGHT_SNAKE - 2,WIDTH_SNAKE),(HEIGHT_SNAKE -1,WIDTH_SNAKE),\
+                              (HEIGHT_SNAKE,WIDTH_SNAKE)])
         self.__round = args.rounds
         self.__is_over = False
 
@@ -37,9 +38,10 @@ class SnakeGame:
         self.__key_clicked = key_clicked
 
     def update_objects(self,move)-> None:
+        if not move: move = "UP"
         # Moves snake and check if he's dead
         snake_status:  dict = self.__snake.move_snake(move)
-        if self.__board.place_snake([snake_status.old_loc], snake_status.new_loc) or snake_status.is_dead:
+        if self.__board.place_snake([snake_status["old_loc"]], snake_status["new_loc"]) or snake_status["is_dead"]:
             self.__is_over = True
             return
         

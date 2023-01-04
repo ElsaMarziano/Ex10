@@ -67,7 +67,8 @@ class Board:
 
     def place_snake(self, old_locations: list, new_loc: tuple = None):
         for old_loc in old_locations:
-            self.board[old_loc[0]][old_loc[1]] == "_"
+            if check_location(self.height, self.width, old_loc): # TODO Check if we need this and why - bug at the begining
+                self.board[old_loc[0]][old_loc[1]] == "_"
         # Check if in the board
         self.board[new_loc[0]][new_loc[1]] == "S"
 
