@@ -39,8 +39,9 @@ class SnakeGame:
         self.__key_clicked = key_clicked
 
     def update_objects(self,move)-> None:
-        self.__snake.move_snake(move,False)        # advance snake
+        self.__snake.move_snake(move)        # advance snake
         self.__board.move_walls_in_board() # advance wall
+        self.__board.place_walls()
         # check if dead
         # if snake eat apple
         # self.__snake.growing()
@@ -48,8 +49,6 @@ class SnakeGame:
         self.__board.add_apple(get_random_apple_data())
         if self.__round % 2 == 0:
             self.__board.add_wall(Wall())
-        self.__board.clean_board() # clean the board
-        self.__board.place_walls()
         self.__board.place_snake(self.__snake.location)
         # add the apples
         # add apple
