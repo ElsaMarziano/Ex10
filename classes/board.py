@@ -65,15 +65,27 @@ class Board:
     # else continue until we get to the last location and then remove wall
 
 
-    def place_snake(self, old_loc: tuple, new_loc: tuple):
-        self.board[old_loc[0]][old_loc[1]] == "_"
+    def place_snake(self, old_locations: list, new_loc: tuple = None):
+        for old_loc in old_locations:
+            self.board[old_loc[0]][old_loc[1]] == "_"
+        # Check if in the board
         self.board[new_loc[0]][new_loc[1]] == "S"
 
 
+    def snake_hits_wall(self, snake):
+        for wall in self.wall_list:
+            coordinates = snake.get_location()
+            if wall[0] in snake.return_head_and_neck() or wall[-1] in snake.return_head_and_neck():
+                return True
+            elif wall[0] in coordinates:
+                locations = snake.update_size(wall[0])
+                self.place_snake(locations)
+            elif wall[-1] in coordinates:
+                snake.update_size(wall[-1])
+                self.place_snake(locations)
 
-
-    def clean_board(self):
-        self.board: list = [["_" for _ in range(self.width)] for _ in range(self.height)]
+           
+                
 
 
 
