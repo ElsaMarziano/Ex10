@@ -34,8 +34,7 @@ class SnakeGame:
 
     def update_objects(self,move)-> None:
         self.__snake.move_snake(move,False)
-
-
+        self.__board
         # advance snake
         # advance wall
         # check what happen if snake eat apple and wall hit snake
@@ -43,7 +42,6 @@ class SnakeGame:
         # update score
         # add apple
         # add wall
-        a =1
     def add_score(self):
         self.__score += int(math.sqrt(self.__snake.get_size()))
 

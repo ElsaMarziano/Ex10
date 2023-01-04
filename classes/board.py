@@ -27,6 +27,7 @@ class Board:
 
 
     def add_apple(self, location: tuple):
+        # TODO find out how to save all data of apple if we clean board evry time
         """ This function tries to add an apple """
         if self.apples_on_board < self.max_apples:
             if check_location(self.height, self.width, location):  # check if apple in limit of the board
@@ -55,4 +56,14 @@ class Board:
                 # remove the wall that all locations not in board
                 self.wall_list.remove(wall)
                 # TODO check if remove can know the difference between walls!
+
+
+    def place_snake(self,locations: list):
+        for location in locations:
+            self.board[location[0]][location[1]] = "S"
+
+    def clean_board(self):
+        self.board: list = [["_" for _ in range(self.width)] for _ in range(self.height)]
+
+
 
