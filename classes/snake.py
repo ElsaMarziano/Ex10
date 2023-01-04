@@ -2,21 +2,21 @@ from helper.constants import *
 from helper.helper import *
 
 class Snake:
-    def __init__(self, locations: int, color: str):
+    def __init__(self, locations: list, color: str):
         self.size: int = SNAKE_SIZE
-        # Not sure if we need a direction
-        #self.direction: str = direction # ? Maybe pass the tuple matching the direction, and not the string
         self.location: list = locations # Head is always the last coordinate (index -1)
+        self.__need_to_grow = 0
         
-    def move_snake(self, direction: str, is_growing: bool):
+    def move_snake(self, direction: str):
         ''' This function makes the snake move in the desired direction, and handles its grow if needed '''
         if not check_direction(MOVES[direction], self.location[-1], self.location[-2]): return # Checks if the direction isn't opposite the snake
         CURRENT_HEAD = self.location[-1]
         # Handle snake growth if needed
-        if not is_growing:
+        if self.__need_to_grow == 0:
             del self.location[0]
         else:
             self.size += 1
+            self.__need_to_grow -= 1
         # Snake moves
         NEW_HEAD = make_something_move(CURRENT_HEAD, MOVES[direction])
         self.location.append(NEW_HEAD)
@@ -28,7 +28,5 @@ class Snake:
         who will kill the snake if a wall touches them '''
         return self.location[-1:-3:-1]
     
-snake = Snake([(3, 0), (3, 1), (3, 2)], COLORS[0])
-snake.move_snake("RIGHT", False)
-print(snake.location)
-        
+    def growing(self):
+        self.__need_to_grow += 3

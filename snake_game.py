@@ -11,35 +11,39 @@ class SnakeGame:
 # TODO put wall only if round is even
 # TODO think how the game start
 # TODO update how much is left for the snake to grow
-#
 
-    def __init__(self,width,height,apples,debug) -> None:
-        self.__x = 5
-        self.__y = 5
+
+    def __init__(self,width = 4,height = 4,apples = 4,round = -1,debug = None) -> None:
+        self.__x = 0
+        self.__y = 1
         self.__key_clicked = None
+        self.__is_over = False
 
 
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
 
-    def update_objects(self)-> None:
-        # advance snake
+    def update_objects(self, move)-> None:
+        # advance and grow snake        
+        # if snake dead - update is_over
         # advance wall
         # check what happen if snake eat apple and wall hit snake
         # check eat apple
         # update score
         # add apple
         # add wall
-        a =1
-
+        return
 
 
     def draw_board(self, gd: GameDisplay) -> None:
+        
         gd.draw_cell(self.__x, self.__y, "blue")
 
+
     def end_round(self) -> None:
+        # Prepare new board
         pass
 
     def is_over(self) -> bool:
-        return False
+        return self.__is_over
 
