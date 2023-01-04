@@ -32,6 +32,7 @@ class SnakeGame:
         self.__snake:Snake = Snake([(self.__board.height -2 ,self.__board.width),(self.__board.height-1,self.__board.width),\
                               (self.__board.height,self.__board.width)])
         self.__round = 0
+        self.__is_over = False
 
 
 
@@ -39,7 +40,12 @@ class SnakeGame:
         self.__key_clicked = key_clicked
 
     def update_objects(self,move)-> None:
-        self.__snake.move_snake(move,False)        # advance snake
+        # Moves snake and check if he's dead
+        snake_status:  dict["is_dead": bool, "old_loc": tuple, "new_loc": tuple] = self.__snake.move_snake(move)
+        self.__board.place_snake(snake_status.old_loc, snake_status.new_loc)
+        if snake_status.is_dead:
+            self.__is_over = True
+            return
         self.__board.move_walls_in_board() # advance wall
         # check if dead
         # if snake eat apple
@@ -50,10 +56,11 @@ class SnakeGame:
             self.__board.add_wall(Wall())
         self.__board.clean_board() # clean the board
         self.__board.place_walls()
-        self.__board.place_snake(self.__snake.location)
         # add the apples
         # add apple
         # add wall
+        
+        
     def add_score(self):
         self.__score += int(math.sqrt(self.__snake.get_size()))
 

@@ -8,20 +8,26 @@ class Snake:
         self.__need_to_grow = 0
         
     def move_snake(self, direction: str):
+        is_dead = False
+        old_loc = None
         ''' This function makes the snake move in the desired direction, and handles its grow if needed '''
         if not check_direction(MOVES[direction], self.location[-1], self.location[-2]): return # Checks if the direction isn't opposite the snake
-        CURRENT_HEAD = self.location[-1]
+        current_head = self.location[-1]
         # Handle snake growth if needed
         if self.__need_to_grow == 0:
+            old_loc = self.location[0]
             del self.location[0]
         else:
             self.size += 1
             self.__need_to_grow -= 1
         # Snake moves
-        NEW_HEAD = make_something_move(CURRENT_HEAD, MOVES[direction])
-        self.location.append(NEW_HEAD)
-        if NEW_HEAD in self.location: # If the snake hurts himself, you lose
-            return "DEAD"
+        new_head = make_something_move(current_head, MOVES[direction])
+        self.location.append(new_head)
+        
+        if new_head in self.location: # If the snake hurts himself, you lose
+            is_dead = True
+            
+        return {"is_dead": is_dead, "old_loc": old_loc, "new_loc": new_head}
         
     def return_head_and_neck(self):
         ''' This function returns the coordinates of the head and "neck" of the snake - that is, all of the coordinates

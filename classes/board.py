@@ -42,6 +42,7 @@ class Board:
     def move_walls_in_board(self):
         """ Change coordinates of every wall on the list """
         for wall in self.wall_list:
+            #? Clean board ?
             wall.move_wall()
 
 
@@ -64,10 +65,9 @@ class Board:
     # else continue until we get to the last location and then remove wall
 
 
-    def place_snake(self,locations: list):
-        for location in locations:
-            self.board[location[0]][location[1]] = "S"
-
+    def place_snake(self, old_loc: tuple, new_loc: tuple):
+        self.board[old_loc[0]][old_loc[1]] == "_"
+        self.board[new_loc[0]][new_loc[1]] == "S"
 
 
     def place_apple(self,locations: list):
@@ -76,7 +76,6 @@ class Board:
                 self.apples_on_board += 1
                 self.board[location[0]][location[1]] = "A"
                 self.apples_location.append((location[0], location[1]))  # add to list
-
 
 
     def clean_board(self):
