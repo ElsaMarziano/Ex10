@@ -53,3 +53,6 @@ class Board:
                 # remove the wall that all locations not in board
                 self.wall_list.remove(wall)
                 # TODO check if remove can know the difference between walls!
+                
+    # For place_walls: maybe go over the locations of each wall, if one of them is in the board get out of the for loop,
+    # else continue until we get to the last location and then remove wall
