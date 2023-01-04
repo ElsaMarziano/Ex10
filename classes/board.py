@@ -72,7 +72,10 @@ class Board:
 
     def place_apple(self,locations: list):
         for location in locations:
-            self.board[location[0]][location[1]] = "A"
+            if self.board[location[0]][location[1]] == "_":  # fall on empty place
+                self.apples_on_board += 1
+                self.board[location[0]][location[1]] = "A"
+                self.apples_location.append((location[0], location[1]))  # add to list
 
 
 
