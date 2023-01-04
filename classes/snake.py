@@ -2,21 +2,21 @@ from helper.constants import *
 from helper.helper import *
 
 class Snake:
-    def __init__(self, locations: list, color: str):
-        self.size: int = SNAKE_SIZE
-        self.location: list = locations # Head is always the last coordinate (index -1)
+    def __init__(self, locations: list):
+        self.__size: int = SNAKE_SIZE
+        self.__location: list = locations # Head is always the last coordinate (index -1)
         self.__need_to_grow = 0
         
     def move_snake(self, direction: str):
         is_dead = False
         old_loc = None
         ''' This function makes the snake move in the desired direction, and handles its grow if needed '''
-        if not check_direction(MOVES[direction], self.location[-1], self.location[-2]): return # Checks if the direction isn't opposite the snake
-        current_head = self.location[-1]
+        if not check_direction(MOVES[direction], self.__location[-1], self.__location[-2]): return # Checks if the direction isn't opposite the snake
+        current_head = self.__location[-1]
         # Handle snake growth if needed
         if self.__need_to_grow == 0:
-            old_loc = self.location[0]
-            del self.location[0]
+            old_loc = self.__location[0]
+            del self.__location[0]
         else:
             self.size += 1
             self.__need_to_grow -= 1
@@ -29,10 +29,21 @@ class Snake:
             
         return {"is_dead": is_dead, "old_loc": old_loc, "new_loc": new_head}
         
+    def update_size(self, coordinate):
+        for index, loc in enumerate(self.__location):
+            if loc == coordinate:
+                to_be_deleted = self.__location[0: index + 1]
+                self.__location = self._location[index + 1:]
+                self.__size = len(self.__location)
+                return to_be_deleted
+        
     def return_head_and_neck(self):
         ''' This function returns the coordinates of the head and "neck" of the snake - that is, all of the coordinates
         who will kill the snake if a wall touches them '''
         return self.location[-1:-3:-1]
+    
+    def get_location(self):
+        return self.__location
 
     def get_head(self):
         return self.location[-1]

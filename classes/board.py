@@ -13,13 +13,11 @@ class Board:
         self.max_apples: int = apples  # num of apple that can exist on board
         self.width: int = width 
         self.height: int = height
-        self.apples_location = list()
 
 
 
     def add_wall(self, wall: Wall):  # only add wall,not place them
         """ This function adds a new wall to the wall_list """
-        # TODO check if round is even
         if len(self.wall_list) < self.max_walls:
             middle_location = wall.location
             # TODO Check if Wall appears on the snake, and if so return
@@ -29,14 +27,12 @@ class Board:
 
 
     def add_apple(self, location: tuple):
-        # TODO find out how to save all data of apple if we clean board evry time
         """ This function tries to add an apple """
         if self.apples_on_board < self.max_apples:
             if check_location(self.height, self.width, location):  # check if apple in limit of the board
                 if self.board[location[0]][location[1]] == "_":  # fall on empty place
                     self.apples_on_board += 1
                     self.board[location[0]][location[1]] = "A"
-                    self.apples_location.append((location[0],location[1])) # add to list
 
 
     def move_walls_in_board(self):
@@ -69,21 +65,27 @@ class Board:
     # else continue until we get to the last location and then remove wall
 
 
-    def place_snake(self, old_loc: tuple, new_loc: tuple):
-        self.board[old_loc[0]][old_loc[1]] == "_"
+    def place_snake(self, old_locations: list, new_loc: tuple = None):
+        for old_loc in old_locations:
+            self.board[old_loc[0]][old_loc[1]] == "_"
+        # Check if in the board
         self.board[new_loc[0]][new_loc[1]] == "S"
 
 
-    def place_apple(self,locations: list):
-        for location in locations:
-            if self.board[location[0]][location[1]] == "_":  # fall on empty place
-                self.apples_on_board += 1
-                self.board[location[0]][location[1]] = "A"
-                self.apples_location.append((location[0], location[1]))  # add to list
+    def snake_hits_wall(self, snake):
+        for wall in self.wall_list:
+            coordinates = snake.get_location()
+            if wall[0] in snake.return_head_and_neck() or wall[-1] in snake.return_head_and_neck():
+                return True
+            elif wall[0] in coordinates:
+                locations = snake.update_size(wall[0])
+                self.place_snake(locations)
+            elif wall[-1] in coordinates:
+                snake.update_size(wall[-1])
+                self.place_snake(locations)
 
-
-    def clean_board(self):
-        self.board: list = [["_" for _ in range(self.width)] for _ in range(self.height)]
+           
+                
 
 
 
