@@ -21,6 +21,7 @@ class Board:
         # TODO check if round is even
         if len(self.wall_list) < self.max_walls:
             middle_location = wall.location
+            # TODO Check if Wall appears on the snake, and if so return
             # check if wall in limit
             if check_location(self.height, self.width, middle_location):
                 self.wall_list.append(wall)  # do you append a wall if middle c
@@ -48,6 +49,7 @@ class Board:
             locations_not_in_board = 0
             wall_list_locations = wall.get_wall_locations()
             for location in wall_list_locations:
+                # TODO Try to do this without locations_not_in_board
                 if check_location(self.height, self.width):
                     self.board[location[0]][location[1]] = "W"
                 else:
@@ -55,7 +57,9 @@ class Board:
             if locations_not_in_board == wall.length:
                 # remove the wall that all locations not in board
                 self.wall_list.remove(wall)
-                # TODO check if remove can know the difference between walls!
+                
+    # For place_walls: maybe go over the locations of each wall, if one of them is in the board get out of the for loop,
+    # else continue until we get to the last location and then remove wall
 
 
     def place_snake(self,locations: list):

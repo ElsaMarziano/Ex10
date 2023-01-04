@@ -2,7 +2,7 @@ from typing import Optional
 from game_display import GameDisplay
 import math
 from classes.board import  Board
-from classes.snake import import Snake
+from classes.snake import Snake
 
 
 class SnakeGame:
@@ -55,5 +55,5 @@ class SnakeGame:
         pass
 
     def is_over(self) -> bool:
-        return False
+        return self.__is_over
 
