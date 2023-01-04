@@ -6,12 +6,13 @@ from classes.snake import Snake
 from game_utils import get_random_apple_data
 from classes.wall import Wall
 from game_utils import get_random_wall_data
+from helper.constants import COLORS
 
 
 
 
 class SnakeGame:
-    #TODO: Start board
+    #TODO: Start board: need to think when to create board
     #TODO Function that adapt our board to the graphic one
     #TODO Add apple if wall destroys it
     
@@ -68,7 +69,10 @@ class SnakeGame:
         
 
     def draw_board(self, gd: GameDisplay) -> None: 
-        gd.draw_cell(self.__x, self.__y, "blue")
+        for height in enumerate(self.__board.board):
+            for width, color in enumerate(self.__board.board[0]):
+                if color != "_":
+                    gd.draw_cell(height, width, COLORS[color])
 
     def end_round(self) -> None:
         self.__round += 1
