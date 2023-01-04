@@ -2,11 +2,11 @@ from helper.constants import *
 from helper.helper import *
 
 class Snake:
-    def __init__(self, locations: int, color: str):
-        self.size: int = SNAKE_SIZE
+    def __init__(self, locations: list, color: str):
+        self.__size: int = SNAKE_SIZE
         # Not sure if we need a direction
         #self.direction: str = direction # ? Maybe pass the tuple matching the direction, and not the string
-        self.location: list = locations # Head is always the last coordinate (index -1)
+        self.__location: list = locations # Head is always the last coordinate (index -1)
         
     def move_snake(self, direction: str, is_growing: bool):
         ''' This function makes the snake move in the desired direction, and handles its grow if needed '''
@@ -27,6 +27,10 @@ class Snake:
         ''' This function returns the coordinates of the head and "neck" of the snake - that is, all of the coordinates
         who will kill the snake if a wall touches them '''
         return self.location[-1:-3:-1]
+
+
+    def get_size(self):
+        return self.__size
     
 snake = Snake([(3, 0), (3, 1), (3, 2)], COLORS[0])
 snake.move_snake("RIGHT", False)

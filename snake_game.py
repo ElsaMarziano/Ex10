@@ -1,5 +1,9 @@
 from typing import Optional
 from game_display import GameDisplay
+import math
+from classes.board import  Board
+from classes.snake import import Snake
+
 
 class SnakeGame:
 # TODO check how draw cell works
@@ -11,18 +15,27 @@ class SnakeGame:
 # TODO put wall only if round is even
 # TODO think how the game start
 # TODO update how much is left for the snake to grow
+# TODO make str to board
 #
 
     def __init__(self,width,height,apples,debug) -> None:
         self.__x = 5
         self.__y = 5
         self.__key_clicked = None
+        self.__score = 0
+        self.__board = Board()
+        self.__snake:Snake = Snake([(self.__board.height -2 ,self.__board.width),(self.__board.height-1,self.__board.width),\
+                              (self.__board.height,self.__board.width)])
+
 
 
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
 
-    def update_objects(self)-> None:
+    def update_objects(self,move)-> None:
+        self.__snake.move_snake(move,False)
+
+
         # advance snake
         # advance wall
         # check what happen if snake eat apple and wall hit snake
@@ -31,6 +44,9 @@ class SnakeGame:
         # add apple
         # add wall
         a =1
+    def add_score(self):
+        self.__score += int(math.sqrt(self.__snake.get_size()))
+
 
 
 

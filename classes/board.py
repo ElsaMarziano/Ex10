@@ -55,3 +55,4 @@ class Board:
                 # remove the wall that all locations not in board
                 self.wall_list.remove(wall)
                 # TODO check if remove can know the difference between walls!
+
