@@ -51,7 +51,8 @@ class Board:
             #? Clean board ?
             old_location = wall.get_wall_locations()
             for loc in old_location:
-                self.board[loc[1]][loc[0]] = "_"
+                if check_location(self.__height, self.__width, loc):
+                    self.board[loc[1]][loc[0]] = "_"
             wall.move_wall()
 
 
@@ -83,7 +84,7 @@ class Board:
         if check_location(self.__height, self.__width, new_loc):
             self.board[new_loc[0]][new_loc[1]] == "S"
         else:
-            return True
+            return "DEAD"
 
 
     def snake_hits_wall(self, snake: Snake):

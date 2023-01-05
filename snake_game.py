@@ -6,7 +6,8 @@ from classes.snake import Snake
 from game_utils import get_random_apple_data
 from classes.wall import Wall
 from game_utils import get_random_wall_data
-from helper.constants import COLORS
+from helper.constants import COLORS, MOVES
+from helper.helper import check_direction
 
 
 
@@ -40,12 +41,14 @@ class SnakeGame:
 
     def update_objects(self,move)-> None:
         if not move: move = "Up"
+        # TODO Get default move from main
+        if not check_direction(MOVES[move], self.__snake.return_head_and_neck()[-1], self.__snake.return_head_and_neck()[-2]): 
+            move = "Up" # Checks if the direction isn't opposite the snake
         # Moves snake and check if he's dead
-        # TODO Check direction here, not in snake
         snake_status:  dict = self.__snake.move_snake(move)
-        #if self.__board.place_snake([snake_status["old_loc"]], snake_status["new_loc"]) or snake_status["is_dead"]:
-            #self.__is_over = True
-            #return
+        if self.__board.place_snake([snake_status["old_loc"]], snake_status["new_loc"]) == "DEAD" or snake_status["is_dead"]:
+            self.__is_over = True
+            return
         
         self.__board.move_walls_in_board() # advance wall
         self.__board.place_walls() #TODO if wall hit apple, add one miyad
