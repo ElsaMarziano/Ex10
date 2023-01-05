@@ -21,6 +21,7 @@ class SnakeGame:
     #TODO We're not using self.__key_clicked, check if it's needed to pass tests
     #TODO Default to all parameters
     #TODO Update round, stop when round is at the maximum
+    #TODO check what is needed to be in the first round
 
 
 
@@ -93,7 +94,8 @@ class SnakeGame:
                     gd.draw_cell(width, height, COLORS[color])
 
     def end_round(self) -> None:
-        if self.__round == -1:
+        if self.__round <= -1:
+            self.__round -= 1
             return
         if self.__round == 0:
             self.__is_over = True
