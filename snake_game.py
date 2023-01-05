@@ -27,7 +27,7 @@ class SnakeGame:
         self.__y = 5
         self.__key_clicked = None
         self.__score = 0
-        self.__snake:Snake = Snake([(HEIGHT_SNAKE - 2,WIDTH_SNAKE),(HEIGHT_SNAKE -1,WIDTH_SNAKE),\
+        self.__snake = Snake([(HEIGHT_SNAKE - 2,WIDTH_SNAKE),(HEIGHT_SNAKE -1,WIDTH_SNAKE),\
                               (HEIGHT_SNAKE,WIDTH_SNAKE)])
         self.__board = Board(self.__snake.get_location(), args.width, args.height, args.apples, args.walls)
         self.__round = args.rounds
