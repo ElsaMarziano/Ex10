@@ -68,8 +68,9 @@ class Board:
             for location in wall_list_locations:
                 # TODO Try to do this without locations_not_in_board and check for old loc
                 if check_location(self.height, self.width,location):
-                    if self.board[location[1]][location[0]]== "A":
+                    if self.board[location[1]][location[0]] == "A":
                         #! @Amitai Is this okay?
+                        self.apples_on_board -= 1
                         self.add_apple(get_random_apple_data())
                     self.board[location[1]][location[0]] = "W"
                 else:
