@@ -16,10 +16,10 @@ class Snake:
         self.__need_to_grow = 0
         
     def move_snake(self, direction: str = "Up"):
+        ''' This function makes the snake move in the desired direction, and handles its grow if needed '''        
         is_dead = False
         old_loc = []
         locations_to_compare = copy.deepcopy(self.__location)
-        ''' This function makes the snake move in the desired direction, and handles its grow if needed '''        
         current_head = self.__location[-1]
         # Handle snake growth if needed
         if self.__need_to_grow == 0:
@@ -35,10 +35,10 @@ class Snake:
         if new_head in locations_to_compare: # If the snake hurts himself, you lose
             is_dead = True
         
-            
         return {"is_dead": is_dead, "old_loc": old_loc, "new_loc": new_head}
         
     def update_size(self, coordinate):
+        """ This function updates size and location of snake if he got cut in half """
         for index, loc in enumerate(self.__location):
             if loc == coordinate:
                 to_be_deleted = self.__location[0: index + 1]
@@ -57,7 +57,6 @@ class Snake:
 
     def get_head(self):
         return self.__location[-1]
-
 
     def get_size(self):
         return self.__size

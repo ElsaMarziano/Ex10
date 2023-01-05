@@ -20,7 +20,7 @@ class Board:
         
         
     def create_board(self, width, height, snake_locations):
-        # Creates initial board
+        """ This function creates the board on the very first time """
         my_board = [[("_" if (col, line) not in snake_locations else "S") for col in range(width)] for line in range(height)]
         return my_board
         
@@ -52,7 +52,6 @@ class Board:
     def move_walls_in_board(self):
         """ Change coordinates of every wall on the list """
         for wall in self.__wall_list:
-            #? Clean board ?
             old_location = wall.get_wall_locations()
             for loc in old_location:
                 if check_location(self.height, self.width, loc):
@@ -84,8 +83,9 @@ class Board:
 
 
     def place_snake(self, old_locations: list, new_loc: tuple = None):
+        """ This function updates the snake's location """
         # Erase the places the snake isn't in anymore
-        if old_locations != [[]]:
+        if old_locations != [[]]: #? Weird that we can't check with length. Check this during code review
             for old_loc in old_locations:
                 self.board[old_loc[1]][old_loc[0]] = "_"
         # Check if snake is still in the board
@@ -96,7 +96,7 @@ class Board:
 
 
     def snake_hits_wall(self, snake: Snake):
-        """ This function checks if the snake hit a wall, and if so if he's dead or just injured """
+        """ This function checks if the snake hits a wall, and if so if he's dead or just injured """
         for wall in self.__wall_list:
             coordinates = snake.get_location()
             wall_locations = wall.get_wall_locations()

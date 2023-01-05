@@ -40,10 +40,11 @@ class SnakeGame:
         self.__key_clicked = key_clicked
 
     def update_objects(self, move)-> None:
+        """ This function updates every object on the board at each turn """
         # Moves snake and check if he's dead
         snake_head_after_move = make_something_move(self.__snake.get_head(), MOVES[move]) # Get head after move
         # Check if snake is still inside the board
-        # ? Why do we need this?
+        # ? @amitai Why do we need this?
         if check_location(self.__board.height, self.__board.width, snake_head_after_move): 
             need_to_grow = self.__board.board[snake_head_after_move[1]][snake_head_after_move[0]] == "A" # Check if head is on apple
         
@@ -57,20 +58,19 @@ class SnakeGame:
             self.__snake.growing()
             self.__board.apples_on_board -= 1
             self.add_score()
-        self.__board.add_apple(get_random_apple_data())
+        # Add aples, move walls and stuff
         self.__board.move_walls_in_board() # advance wall
-        self.__board.place_walls() #TODO if wall hit apple, add one miyad
+        self.__board.place_walls() 
         
         if self.__board.snake_hits_wall(self.__snake):
             self.__is_over = True
             return
-        # check if dead
-        # if snake eat apple
-        # self.add_score()
-        #self.__board.add_apple()
+
         if self.__round % 2 == 0:
             self.__board.add_wall(Wall())
+            
         self.__board.place_walls()
+        self.__board.add_apple(get_random_apple_data())
         
         
     def add_score(self):
@@ -82,7 +82,6 @@ class SnakeGame:
             self.__is_over = True
         if self.__board[head[1]][head[0]] == "W":
             self.__is_over = True
-
 
 
     def draw_board(self, gd: GameDisplay) -> None:
