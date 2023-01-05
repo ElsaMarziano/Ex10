@@ -13,9 +13,12 @@ from helper.helper import check_direction
 
 
 class SnakeGame:
-    #TODO: Start board: need to think when to create board
-    #TODO Function that adapt our board to the graphic one
+    #TODO Function that adapt our board to the graphic one ??
     #TODO Add apple if wall destroys it
+    #TODO When adding wall, check if it's not on the snake
+    #TODO Check why check_direction doesn't work (it lets the snake go in that direction and then kills it cause it ate itself)
+    #TODO Code review!!!!!!! + add comments
+    #TODO Check if we need to paint the elements one by one
 
     #TODO Default to all parameters
 
@@ -38,11 +41,10 @@ class SnakeGame:
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
 
-    def update_objects(self,move)-> None:
-        if not move: move = "Up"
+    def update_objects(self, move, prev_move)-> None:
         # TODO Get default move from main
-        if not check_direction(MOVES[move], self.__snake.return_head_and_neck()[-1], self.__snake.return_head_and_neck()[-2]): 
-            move = "Up" # Checks if the direction isn't opposite the snake
+        if check_direction(MOVES[move], self.__snake.return_head_and_neck()[-1], self.__snake.return_head_and_neck()[-2]): 
+            move = prev_move # Checks if the direction isn't opposite the snake
         # Moves snake and check if he's dead
         snake_status:  dict = self.__snake.move_snake(move)
         if self.__board.place_snake([snake_status["old_loc"]], snake_status["new_loc"]) == "DEAD" or snake_status["is_dead"]:
@@ -70,16 +72,15 @@ class SnakeGame:
     def add_score(self):
         self.__score += int(math.sqrt(self.__snake.get_size()))
 
-    def check_collision(self, head: tuple):
-        if head[0] >= self.__board.__height or head[1] >= self.__board.__width or head[0] <= 0 or head[1] <= 0  :
+    def check_collision(self, head: tuple): #TODO Check if we need this function
+        if head[0] >= self.__board.__height or head[0] >= self.__board.__width or head[1] <= 0 or head[1] <= 0  :
             self.__is_over = True
-        if self.__board[head[0]][head[1]] == "W":
+        if self.__board[head[1]][head[0]] == "W":
             self.__is_over = True
 
 
 
     def draw_board(self, gd: GameDisplay) -> None:
-        #print(self.__board.board)
         for height, _ in enumerate(self.__board.board):
             for width, _ in enumerate(self.__board.board[0]):
                 color = self.__board.board[height][width]

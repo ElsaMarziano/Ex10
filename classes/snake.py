@@ -46,6 +46,7 @@ class Snake:
                 self.__size = len(self.__location)
                 return to_be_deleted
         
+        
     def return_head_and_neck(self):
         ''' This function returns the coordinates of the head and "neck" of the snake - that is, all of the coordinates
         who will kill the snake if a wall touches them '''
