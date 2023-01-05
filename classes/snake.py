@@ -7,7 +7,7 @@ class Snake:
         self.__location: list = locations # Head is always the last coordinate (index -1)
         self.__need_to_grow = 0
         
-    def move_snake(self, direction: str):
+    def move_snake(self, direction: str = "UP"):
         is_dead = False
         old_loc = None
         ''' This function makes the snake move in the desired direction, and handles its grow if needed '''
@@ -22,9 +22,9 @@ class Snake:
             self.__need_to_grow -= 1
         # Snake moves
         new_head = make_something_move(current_head, MOVES[direction])
-        self.location.append(new_head)
+        self.__location.append(new_head)
         
-        if new_head in self.location: # If the snake hurts himself, you lose
+        if new_head in self.__location: # If the snake hurts himself, you lose
             is_dead = True
             
         return {"is_dead": is_dead, "old_loc": old_loc, "new_loc": new_head}
@@ -33,14 +33,14 @@ class Snake:
         for index, loc in enumerate(self.__location):
             if loc == coordinate:
                 to_be_deleted = self.__location[0: index + 1]
-                self.__location = self._location[index + 1:]
+                self.__location = self.__location[index + 1:]
                 self.__size = len(self.__location)
                 return to_be_deleted
         
     def return_head_and_neck(self):
         ''' This function returns the coordinates of the head and "neck" of the snake - that is, all of the coordinates
         who will kill the snake if a wall touches them '''
-        return self.location[-1:-3:-1]
+        return self.__location[-1:-3:-1]
     
     def get_location(self):
         return self.__location
