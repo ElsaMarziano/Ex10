@@ -14,13 +14,13 @@ class Wall:
     def get_wall_locations(self):
         """ Return list of locations the wall is in """
         list_of_locations = [] #  list with 3 tuples (row,col)
-        middle_row = self.location[0] # x
-        middle_col = self.location[1] #y
+        middle_col = self.location[0] # x
+        middle_row = self.location[1] #y
         # TODO Check if there's a way to do this more effectively with the make_something_move function
         if self.movement == "Up" or self.movement == "Down":
-            list_of_locations = [(middle_row - 1,middle_col),(middle_row,middle_col),(middle_row + 1,middle_col)]
+            list_of_locations = [(middle_row ,middle_col - 1),(middle_row,middle_col),(middle_row,middle_col + 1)]
         elif self.movement == "Right" or self.movement == "Left":
-            list_of_locations = [(middle_row,middle_col-1), (middle_row, middle_col), (middle_row , middle_col + 1)]
+            list_of_locations = [(middle_row - 1,middle_col), (middle_row, middle_col), (middle_row + 1 , middle_col)]
         return list_of_locations
 
 

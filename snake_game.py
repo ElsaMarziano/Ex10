@@ -27,9 +27,9 @@ class SnakeGame:
         self.__y = 5
         self.__key_clicked = None
         self.__score = 0
-        self.__snake = Snake([(HEIGHT_SNAKE - 2,WIDTH_SNAKE),(HEIGHT_SNAKE -1,WIDTH_SNAKE),\
-                              (HEIGHT_SNAKE,WIDTH_SNAKE)])
-        self.__board = Board(self.__snake.get_location(), args.width, args.height, args.apples, args.walls)
+        self.__snake = Snake([(WIDTH_SNAKE,HEIGHT_SNAKE - 2),(WIDTH_SNAKE,HEIGHT_SNAKE - 1),\
+                              (WIDTH_SNAKE,HEIGHT_SNAKE)])
+        self.__board = Board(self.__snake.get_location(),args.width, args.height, args.apples, args.walls)
         self.__round = args.rounds
         self.__is_over = False
 
@@ -42,14 +42,14 @@ class SnakeGame:
         if not move: move = "UP"
         # Moves snake and check if he's dead
         snake_status:  dict = self.__snake.move_snake(move)
-        if self.__board.place_snake([snake_status["old_loc"]], snake_status["new_loc"]) or snake_status["is_dead"]:
-            self.__is_over = True
-            return
+        #if self.__board.place_snake([snake_status["old_loc"]], snake_status["new_loc"]) or snake_status["is_dead"]:
+            #self.__is_over = True
+            #return
         
         self.__board.move_walls_in_board() # advance wall
         self.__board.place_walls() #TODO if wall hit apple, add one miyad
         
-        if  self.__board.snake_hits_wall(self.__snake):
+        if self.__board.snake_hits_wall(self.__snake):
             self.__is_over = True
             return
         # check if dead

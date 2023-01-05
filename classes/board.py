@@ -44,8 +44,9 @@ class Board:
         for wall in self.__wall_list:
             #? Clean board ?
             old_location = wall.get_wall_locations()
+            # TODO check what wall.get_wall_locations() get, it give a list not a tuple!!!
             for loc in old_location:
-                self.board[old_location[0]][old_location[1]] = "_"
+                self.board[loc[0]][loc[1]] = "_"
             wall.move_wall()
 
 
@@ -57,7 +58,7 @@ class Board:
             wall_list_locations = wall.get_wall_locations()
             for location in wall_list_locations:
                 # TODO Try to do this without locations_not_in_board and check for old loc
-                if check_location(self.__height, self.__width):
+                if check_location(self.__height, self.__width,location):
                     self.board[location[0]][location[1]] = "W"
                 else:
                     locations_not_in_board += 1

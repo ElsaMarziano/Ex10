@@ -1,6 +1,12 @@
 from helper.constants import *
 from helper.helper import *
 
+
+# TODO i changed constats
+# TODO i changed the order of para that give to snake in snake game, first width and then hight
+# TODO i changed the way board is created
+# TODO i changed change location func
+# TODO i changed get_wall_locations
 class Snake:
     def __init__(self, locations: list):
         self.__size: int = SNAKE_SIZE
