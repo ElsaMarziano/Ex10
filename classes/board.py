@@ -85,8 +85,9 @@ class Board:
 
     def place_snake(self, old_locations: list, new_loc: tuple = None):
         # Erase the places the snake isn't in anymore
-        for old_loc in old_locations:
-            self.board[old_loc[1]][old_loc[0]] = "_"
+        if old_locations != [[]]:
+            for old_loc in old_locations:
+                self.board[old_loc[1]][old_loc[0]] = "_"
         # Check if snake is still in the board
         if new_loc and check_location(self.height, self.width, new_loc):
             self.board[new_loc[1]][new_loc[0]] = "S"
