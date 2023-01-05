@@ -3,7 +3,6 @@ def make_something_move(origin: tuple, move: tuple):
     For example, if we want to move the snake one square up, the function will receive the coordinate of the snake's head
     and the coordinate of UP as appears in constant.py, adds them up and returns the the coordinate for the snake's head
     """
-
     return (origin[0] + move[0], origin[1] + move[1])
 
 def check_direction(direction: tuple, current_head: tuple, current_neck: tuple):
@@ -13,4 +12,5 @@ def check_direction(direction: tuple, current_head: tuple, current_neck: tuple):
 
 def check_location(height: int, width: int, location: tuple):
     """ This function returns True if the given location is in the limits of the board """
-    return location[0] < height and location[1] < width and location[0] >= 0 and location[1] >= 0
+    #print(location, width, height, location[0] < width and location[1] < height and location[0] >= 0 and location[1] >= 0)
+    return location[0] < width and location[1] < height and location[0] >= 0 and location[1] >= 0

@@ -1,13 +1,20 @@
 from helper.constants import *
 from helper.helper import *
 
+
+# TODO i changed constats
+# TODO i changed the order of para that give to snake in snake game, first width and then hight
+# TODO i changed the way board is created
+# TODO i changed change location func
+# TODO i changed get_wall_locations
+
 class Snake:
     def __init__(self, locations: list):
         self.__size: int = SNAKE_SIZE
         self.__location: list = locations # Head is always the last coordinate (index -1)
         self.__need_to_grow = 0
         
-    def move_snake(self, direction: str = "UP"):
+    def move_snake(self, direction: str = "Up"):
         is_dead = False
         old_loc = None
         ''' This function makes the snake move in the desired direction, and handles its grow if needed '''
@@ -46,6 +53,9 @@ class Snake:
     
     def get_location(self):
         return self.__location
+
+    def get_head(self):
+        return self.location[-1]
 
 
     def get_size(self):
