@@ -69,7 +69,7 @@ class SnakeGame:
         self.__score += int(math.sqrt(self.__snake.get_size()))
 
     def check_collusion(self, head: tuple):
-        if head[0] >= self.__board.height or head[1] >= self.__board.width:
+        if head[0] >= self.__board.height or head[1] >= self.__board.width or head[0] <= 0 or head[1] <= 0  :
             self.__is_over = True
         if self.__board[head[0]][head[1]] == "W":
             self.__is_over = True
