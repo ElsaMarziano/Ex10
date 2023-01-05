@@ -85,7 +85,7 @@ class Board:
                 if check_location(self.height, self.width, old_loc): # TODO Check if we need this and why - bug at the begining
                     self.board[old_loc[1]][old_loc[0]] = "_"
         # Check if in the board
-        if check_location(self.height, self.width, new_loc):
+        if new_loc and check_location(self.height, self.width, new_loc):
             self.board[new_loc[1]][new_loc[0]] = "S"
         else:
             return "DEAD"
@@ -104,7 +104,7 @@ class Board:
                 locations = snake.update_size(wall_locations[0])
                 self.place_snake(locations)
             elif wall_locations[-1] in coordinates:
-                snake.update_size(wall_locations[-1])
+                locations = snake.update_size(wall_locations[-1])
                 self.place_snake(locations)
 
 
