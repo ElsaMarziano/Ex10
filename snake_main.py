@@ -6,12 +6,13 @@ from game_display import GameDisplay
 def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     # INIT OBJECTS
     game = SnakeGame(args)
-    gd.show_score(0)
+    gd.show_score(game.score)
     # DRAW BOARD
     game.draw_board(gd)
     # END OF ROUND 0
     prev_move = "Up"
     while not game.is_over():
+        gd.show_score(game.score)
         # CHECK KEY CLICKS
         key_clicked = gd.get_key_clicked()
         game.read_key(key_clicked)

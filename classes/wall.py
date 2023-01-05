@@ -28,3 +28,4 @@ class Wall:
     def move_wall(self):
         """ Moves the wall in the right direction """
         self.location = make_something_move(self.location, MOVES[self.movement])
+

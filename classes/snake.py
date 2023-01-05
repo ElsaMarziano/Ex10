@@ -17,7 +17,7 @@ class Snake:
         
     def move_snake(self, direction: str = "Up"):
         is_dead = False
-        old_loc = None
+        old_loc = []
         old_locations = copy.deepcopy(self.__location)
         ''' This function makes the snake move in the desired direction, and handles its grow if needed '''        
         current_head = self.__location[-1]
@@ -26,7 +26,7 @@ class Snake:
             old_loc = self.__location[0]
             del self.__location[0]
         else:
-            self.size += 1
+            self.__size += 1
             self.__need_to_grow -= 1
         # Snake moves
         new_head = make_something_move(current_head, MOVES[direction])
@@ -56,7 +56,7 @@ class Snake:
         return self.__location
 
     def get_head(self):
-        return self.location[-1]
+        return self.__location[-1]
 
 
     def get_size(self):

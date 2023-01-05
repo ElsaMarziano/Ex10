@@ -10,12 +10,12 @@ class Board:
         #TODO do every variable private
         self.board: list = self.create_board(width, height, snake_locations)
         self.__wall_list = list()  # current walls on the board
-        self.__apples_on_board: int = 0  # current apples on the board
+        self.apples_on_board: int = 0  # current apples on the board
         self.__max_walls: int = walls  # num of walls that can exist on board
         # how we transfer the apples on board from board to board? we need another func
         self.__max_apples: int = apples  # num of apple that can exist on board
-        self.__width: int = width 
-        self.__height: int = height
+        self.width: int = width 
+        self.height: int = height
         
         
     def create_board(self, width, height, snake_locations):
@@ -30,16 +30,20 @@ class Board:
             middle_location = wall.location
             # TODO Check if Wall appears on the snake, and if so return
             # check if wall in limit
-            if check_location(self.__height, self.__width, middle_location):
+            if check_location(self.height, self.width, middle_location): #CHECK if middle in limit
+                for location in wall.get_wall_locations(): #not add wall if wall fall on snake (important for not middle)
+                    if 0 <= location[1] < self.height and 0 <= location[0] < self.width :
+                        if self.board[location[1]][location[0]] == "S":
+                            return
                 self.__wall_list.append(wall)  # do you append a wall if middle c
 
 
     def add_apple(self, location: tuple):
         """ This function tries to add an apple """
-        if self.__apples_on_board < self.__max_apples:
-            if check_location(self.__height, self.__width, location):  # check if apple in limit of the board
+        if self.apples_on_board < self.__max_apples:
+            if check_location(self.height, self.width, location):  # check if apple in limit of the board
                 if self.board[location[1]][location[0]] == "_":  # fall on empty place
-                    self.__apples_on_board += 1
+                    self.apples_on_board += 1
                     self.board[location[1]][location[0]] = "A"
 
 
@@ -50,7 +54,7 @@ class Board:
             #? Clean board ?
             old_location = wall.get_wall_locations()
             for loc in old_location:
-                if check_location(self.__height, self.__width, loc):
+                if check_location(self.height, self.width, loc):
                     self.board[loc[1]][loc[0]] = "_"
             wall.move_wall()
 
@@ -63,7 +67,7 @@ class Board:
             wall_list_locations = wall.get_wall_locations()
             for location in wall_list_locations:
                 # TODO Try to do this without locations_not_in_board and check for old loc
-                if check_location(self.__height, self.__width,location):
+                if check_location(self.height, self.width,location):
                     self.board[location[1]][location[0]] = "W"
                 else:
                     locations_not_in_board += 1
@@ -76,11 +80,12 @@ class Board:
 
 
     def place_snake(self, old_locations: list, new_loc: tuple = None):
-        for old_loc in old_locations:
-            if check_location(self.__height, self.__width, old_loc): # TODO Check if we need this and why - bug at the begining
-                self.board[old_loc[1]][old_loc[0]] = "_"
+        if old_locations != [[]]:
+            for old_loc in old_locations:
+                if check_location(self.height, self.width, old_loc): # TODO Check if we need this and why - bug at the begining
+                    self.board[old_loc[1]][old_loc[0]] = "_"
         # Check if in the board
-        if check_location(self.__height, self.__width, new_loc):
+        if check_location(self.height, self.width, new_loc):
             self.board[new_loc[1]][new_loc[0]] = "S"
         else:
             return "DEAD"

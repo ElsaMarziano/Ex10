@@ -13,4 +13,4 @@ def check_direction(direction: tuple, current_head: tuple, current_neck: tuple):
 def check_location(height: int, width: int, location: tuple):
     """ This function returns True if the given location is in the limits of the board """
     #print(location, width, height, location[0] < width and location[1] < height and location[0] >= 0 and location[1] >= 0)
-    return location[0] < width and location[1] < height and location[0] >= 0 and location[1] >= 0
+    return (location[0] < width) and (location[1] < height) and (location[0] >= 0) and (location[1] >= 0)
