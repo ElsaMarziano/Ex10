@@ -1,5 +1,6 @@
 from helper.constants import *
 from helper.helper import *
+import copy
 
 
 # TODO i changed constats
@@ -7,6 +8,7 @@ from helper.helper import *
 # TODO i changed the way board is created
 # TODO i changed change location func
 # TODO i changed get_wall_locations
+
 class Snake:
     def __init__(self, locations: list):
         self.__size: int = SNAKE_SIZE
@@ -16,8 +18,8 @@ class Snake:
     def move_snake(self, direction: str = "Up"):
         is_dead = False
         old_loc = None
-        ''' This function makes the snake move in the desired direction, and handles its grow if needed '''
-        if not check_direction(MOVES[direction], self.__location[-1], self.__location[-2]): return # Checks if the direction isn't opposite the snake
+        old_locations = copy.deepcopy(self.__location)
+        ''' This function makes the snake move in the desired direction, and handles its grow if needed '''        
         current_head = self.__location[-1]
         # Handle snake growth if needed
         if self.__need_to_grow == 0:
@@ -30,8 +32,9 @@ class Snake:
         new_head = make_something_move(current_head, MOVES[direction])
         self.__location.append(new_head)
         
-        if new_head in self.__location: # If the snake hurts himself, you lose
+        if new_head in old_locations: # If the snake hurts himself, you lose
             is_dead = True
+        
             
         return {"is_dead": is_dead, "old_loc": old_loc, "new_loc": new_head}
         
@@ -42,6 +45,7 @@ class Snake:
                 self.__location = self.__location[index + 1:]
                 self.__size = len(self.__location)
                 return to_be_deleted
+        
         
     def return_head_and_neck(self):
         ''' This function returns the coordinates of the head and "neck" of the snake - that is, all of the coordinates
