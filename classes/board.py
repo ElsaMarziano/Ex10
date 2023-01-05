@@ -2,6 +2,7 @@ import classes.wall as Wall
 from helper.helper import *
 from classes.snake import Snake
 import copy
+from game_utils import get_random_apple_data
 
 
 class Board:
@@ -28,11 +29,11 @@ class Board:
         """ This function adds a new wall to the wall_list """
         if len(self.__wall_list) < self.__max_walls:
             middle_location = wall.location
-            # TODO Check if Wall appears on the snake, and if so return
-            # check if wall in limit
-            if check_location(self.height, self.width, middle_location): #CHECK if middle in limit
-                for location in wall.get_wall_locations(): #not add wall if wall fall on snake (important for not middle)
-                    if 0 <= location[1] < self.height and 0 <= location[0] < self.width :
+            # Check if the coordinate received is inside the limits of the board
+            if check_location(self.height, self.width, middle_location):
+                for location in wall.get_wall_locations():
+                    # If wall appears on snake, return
+                    if check_location(self.height, self.width, location) :
                         if self.board[location[1]][location[0]] == "S":
                             return
                 self.__wall_list.append(wall)  # do you append a wall if middle c
@@ -60,7 +61,7 @@ class Board:
 
 
 
-    def place_walls(self):  # !Remember to move walls in board before the apples
+    def place_walls(self):
         """ This function handles the movement of all walls on the board """
         for wall in self.__wall_list:
             locations_not_in_board = 0
@@ -68,6 +69,9 @@ class Board:
             for location in wall_list_locations:
                 # TODO Try to do this without locations_not_in_board and check for old loc
                 if check_location(self.height, self.width,location):
+                    if self.board[location[1]][location[0]]== "A":
+                        #! @Amitai Is this okay?
+                        self.add_apple(get_random_apple_data())
                     self.board[location[1]][location[0]] = "W"
                 else:
                     locations_not_in_board += 1
@@ -80,11 +84,10 @@ class Board:
 
 
     def place_snake(self, old_locations: list, new_loc: tuple = None):
-        if old_locations != [[]]:
-            for old_loc in old_locations:
-                if check_location(self.height, self.width, old_loc): # TODO Check if we need this and why - bug at the begining
-                    self.board[old_loc[1]][old_loc[0]] = "_"
-        # Check if in the board
+        # Erase the places the snake isn't in anymore
+        for old_loc in old_locations:
+            self.board[old_loc[1]][old_loc[0]] = "_"
+        # Check if snake is still in the board
         if new_loc and check_location(self.height, self.width, new_loc):
             self.board[new_loc[1]][new_loc[0]] = "S"
         else:
