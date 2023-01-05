@@ -44,13 +44,11 @@ class SnakeGame:
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
 
-    def update_objects(self, move, prev_move)-> None:
-        # TODO Get default move from main
-        if check_direction(MOVES[move], self.__snake.return_head_and_neck()[-1], self.__snake.return_head_and_neck()[-2]): 
-            move = prev_move # Checks if the direction isn't opposite the snake
+    def update_objects(self, move)-> None:
         # Moves snake and check if he's dead
-        # NEED to check if after the head move if its out of limit
-        snake_head_after_move = make_something_move(self.__snake.get_head(),MOVES[move]) # get head after move
+        # TODO NEED to check if after the head move if its out of limit
+        snake_head_after_move = make_something_move(self.__snake.get_head(), MOVES[move]) # get head after move
+        
         if check_location(self.__board.height, self.__board.width, snake_head_after_move): # check if next step is out of limit
             need_to_grow = self.__board.board[snake_head_after_move[1]][snake_head_after_move[0]] == "A" #check if head is on apple
         snake_status:  dict = self.__snake.move_snake(move) #move first before tell him to grow if needed
