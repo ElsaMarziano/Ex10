@@ -59,7 +59,7 @@ class SnakeGame:
             self.__snake.growing()
             self.__board.apples_on_board -= 1
             self.add_score()
-            
+        self.__board.add_apple(get_random_apple_data())
         self.__board.move_walls_in_board() # advance wall
         self.__board.place_walls() #TODO if wall hit apple, add one miyad
         
