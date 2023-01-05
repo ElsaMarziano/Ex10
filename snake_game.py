@@ -15,20 +15,18 @@ from helper.helper import check_location
 
 
 class SnakeGame:
-    #TODO Function that adapt our board to the graphic one ??
     #TODO Code review!!!!!!! + add comments
     #TODO upload score when apple eaten
     #TODO dont commit suicide
     #TODO We're not using self.__key_clicked, check if it's needed to pass tests
     #TODO Default to all parameters
+    #TODO Update round, stop when round is at the maximum
 
 
 
     def __init__(self, args) -> None:
         WIDTH_SNAKE = args.width // 2
         HEIGHT_SNAKE = args.height // 2
-        self.__x = 5
-        self.__y = 5
         self.__key_clicked = None
         self.score = 0
         self.__snake = Snake([(WIDTH_SNAKE,HEIGHT_SNAKE - 2),(WIDTH_SNAKE,HEIGHT_SNAKE - 1), (WIDTH_SNAKE,HEIGHT_SNAKE)])

@@ -103,6 +103,7 @@ class Board:
             if wall_locations[0] in snake.return_head_and_neck() or wall_locations[-1] in snake.return_head_and_neck():
                 return True
             # Check if snake is injured and if so, update size
+            #? Maybe put this in a function to avoid duplicate - code review
             elif wall_locations[0] in coordinates:
                 locations = snake.update_size(wall_locations[0])
                 self.place_snake(locations)
