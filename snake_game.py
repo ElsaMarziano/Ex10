@@ -39,7 +39,7 @@ class SnakeGame:
         self.__key_clicked = key_clicked
 
     def update_objects(self,move)-> None:
-        if not move: move = "UP"
+        if not move: move = "Up"
         # Moves snake and check if he's dead
         snake_status:  dict = self.__snake.move_snake(move)
         #if self.__board.place_snake([snake_status["old_loc"]], snake_status["new_loc"]) or snake_status["is_dead"]:

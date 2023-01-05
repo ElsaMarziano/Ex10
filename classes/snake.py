@@ -13,7 +13,7 @@ class Snake:
         self.__location: list = locations # Head is always the last coordinate (index -1)
         self.__need_to_grow = 0
         
-    def move_snake(self, direction: str = "UP"):
+    def move_snake(self, direction: str = "Up"):
         is_dead = False
         old_loc = None
         ''' This function makes the snake move in the desired direction, and handles its grow if needed '''
