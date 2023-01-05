@@ -85,7 +85,7 @@ class SnakeGame:
                     gd.draw_cell(height, width, COLORS[color])
 
     def end_round(self) -> None:
-        self.__round += 1
+        self.__round += 1   d
 
     def is_over(self) -> bool:
         return self.__is_over
