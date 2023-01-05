@@ -6,7 +6,7 @@ class Board:
     # need to add debug and round?
     def __init__(self, snake_locations: list, width: int = 40, height: int = 30, apples: int = 3, walls: int = 2):
         #TODO do every variable private
-        self.__board: list = self.create_board(width, height, snake_locations)
+        self.board: list = self.create_board(width, height, snake_locations)
         self.__wall_list = list()  # current walls on the board
         self.__apples_on_board: int = 0  # current apples on the board
         self.__max_walls: int = walls  # num of walls that can exist on board
@@ -35,10 +35,9 @@ class Board:
         """ This function tries to add an apple """
         if self.__apples_on_board < self.__max_apples:
             if check_location(self.__height, self.__width, location):  # check if apple in limit of the board
-                if self.__board[location[0]][location[1]] == "_":  # fall on empty place
+                if self.board[location[0]][location[1]] == "_":  # fall on empty place
                     self.__apples_on_board += 1
-                    self.__board[location[0]][location[1]] = "A"
-
+                    self.board[location[0]][location[1]] = "A"
 
     def move_walls_in_board(self):
         """ Change coordinates of every wall on the list """
@@ -46,7 +45,7 @@ class Board:
             #? Clean board ?
             old_location = wall.get_wall_locations()
             for loc in old_location:
-                self.__board[old_location[0]][old_location[1]] = "_"
+                self.board[old_location[0]][old_location[1]] = "_"
             wall.move_wall()
 
 
@@ -59,7 +58,7 @@ class Board:
             for location in wall_list_locations:
                 # TODO Try to do this without locations_not_in_board and check for old loc
                 if check_location(self.__height, self.__width):
-                    self.__board[location[0]][location[1]] = "W"
+                    self.board[location[0]][location[1]] = "W"
                 else:
                     locations_not_in_board += 1
             if locations_not_in_board == wall.length:
@@ -73,9 +72,9 @@ class Board:
     def place_snake(self, old_locations: list, new_loc: tuple = None):
         for old_loc in old_locations:
             if check_location(self.__height, self.__width, old_loc): # TODO Check if we need this and why - bug at the begining
-                self.__board[old_loc[0]][old_loc[1]] == "_"
+                self.board[old_loc[0]][old_loc[1]] == "_"
         # Check if in the board
-        self.__board[new_loc[0]][new_loc[1]] == "S"
+        self.board[new_loc[0]][new_loc[1]] == "S"
 
 
     def snake_hits_wall(self, snake):
@@ -92,7 +91,7 @@ class Board:
 
     def mirror_board_upside_down(self):
         # Create a reversed copy of the matrix using slicing
-        reversed_board = copy.deepcopy(self.__board)[::-1]
+        reversed_board = copy.deepcopy(self.board)[::-1]
         return reversed_board
 
 

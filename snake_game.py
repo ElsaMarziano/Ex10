@@ -76,10 +76,10 @@ class SnakeGame:
 
 
     def draw_board(self, gd: GameDisplay) -> None:
-        #print(self.__board.__board)
-        for height, _ in enumerate(self.__board.__board):
-            for width, _ in enumerate(self.__board.__board[0]):
-                color = self.__board.__board[height][width]
+        #print(self.__board.board)
+        for height, _ in enumerate(self.__board.board):
+            for width, _ in enumerate(self.__board.board[0]):
+                color = self.__board.board[height][width]
                 print(color)
                 if color != "_":
                     gd.draw_cell(height, width, COLORS[color])
@@ -89,4 +89,3 @@ class SnakeGame:
 
     def is_over(self) -> bool:
         return self.__is_over
-
