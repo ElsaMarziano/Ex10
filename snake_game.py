@@ -22,7 +22,6 @@ class SnakeGame:
 
 
     def __init__(self, args) -> None:
-        print(args)
         WIDTH_SNAKE = args.width // 2
         HEIGHT_SNAKE = args.height // 2
         self.__x = 5

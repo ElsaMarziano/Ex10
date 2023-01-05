@@ -20,7 +20,6 @@ class Board:
         
     def create_board(self, width, height, snake_locations):
         # Creates initial board
-        print(snake_locations)
         my_board = [[("_" if (col, line) not in snake_locations else "S") for col in range(width)] for line in range(height)]
         return my_board
         
@@ -79,10 +78,10 @@ class Board:
     def place_snake(self, old_locations: list, new_loc: tuple = None):
         for old_loc in old_locations:
             if check_location(self.__height, self.__width, old_loc): # TODO Check if we need this and why - bug at the begining
-                self.board[old_loc[0]][old_loc[1]] == "_"
+                self.board[old_loc[1]][old_loc[0]] = "_"
         # Check if in the board
         if check_location(self.__height, self.__width, new_loc):
-            self.board[new_loc[0]][new_loc[1]] == "S"
+            self.board[new_loc[1]][new_loc[0]] = "S"
         else:
             return "DEAD"
 
