@@ -68,7 +68,7 @@ class SnakeGame:
         self.__score += int(math.sqrt(self.__snake.get_size()))
 
     def check_collusion(self, head: tuple):
-        if head[0] >= self.__board.height or head[1] >= self.__board.width or head[0] <= 0 or head[1] <= 0  :
+        if head[0] >= self.__board.__height or head[1] >= self.__board.__width or head[0] <= 0 or head[1] <= 0  :
             self.__is_over = True
         if self.__board[head[0]][head[1]] == "W":
             self.__is_over = True
@@ -76,10 +76,10 @@ class SnakeGame:
 
 
     def draw_board(self, gd: GameDisplay) -> None:
-        print(self.__board.board)
-        for height, _ in enumerate(self.__board.board):
-            for width, _ in enumerate(self.__board.board[0]):
-                color = self.__board.board[height][width]
+        #print(self.__board.__board)
+        for height, _ in enumerate(self.__board.__board):
+            for width, _ in enumerate(self.__board.__board[0]):
+                color = self.__board.__board[height][width]
                 print(color)
                 if color != "_":
                     gd.draw_cell(height, width, COLORS[color])
