@@ -11,7 +11,9 @@ class Snake:
         is_dead = False
         old_loc = None
         ''' This function makes the snake move in the desired direction, and handles its grow if needed '''
-        if not check_direction(MOVES[direction], self.__location[-1], self.__location[-2]): return # Checks if the direction isn't opposite the snake
+        #TODO Check direction not here but in game
+        if not check_direction(MOVES[direction], self.__location[-1], self.__location[-2]): 
+            return # Checks if the direction isn't opposite the snake
         current_head = self.__location[-1]
         # Handle snake growth if needed
         if self.__need_to_grow == 0:

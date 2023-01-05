@@ -39,8 +39,9 @@ class SnakeGame:
         self.__key_clicked = key_clicked
 
     def update_objects(self,move)-> None:
-        if not move: move = "UP"
+        if not move: move = "DOWN"
         # Moves snake and check if he's dead
+        # TODO Check direction here, not in snake
         snake_status:  dict = self.__snake.move_snake(move)
         if self.__board.place_snake([snake_status["old_loc"]], snake_status["new_loc"]) or snake_status["is_dead"]:
             self.__is_over = True
@@ -69,11 +70,9 @@ class SnakeGame:
         
 
     def draw_board(self, gd: GameDisplay) -> None: 
-        print(self.__board.board)
         for height, _ in enumerate(self.__board.board):
             for width, _ in enumerate(self.__board.board[0]):
                 color = self.__board.board[height][width]
-                print(color)
                 if color != "_":
                     gd.draw_cell(height, width, COLORS[color])
 

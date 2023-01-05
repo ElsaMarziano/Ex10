@@ -75,7 +75,10 @@ class Board:
             if check_location(self.height, self.width, old_loc): # TODO Check if we need this and why - bug at the begining
                 self.board[old_loc[0]][old_loc[1]] == "_"
         # Check if in the board
-        self.board[new_loc[0]][new_loc[1]] == "S"
+        if check_location(self.height, self.width, new_loc):
+            self.board[new_loc[0]][new_loc[1]] == "S"
+        else:
+            return True
 
 
     def snake_hits_wall(self, snake):
