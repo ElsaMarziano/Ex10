@@ -30,7 +30,8 @@ class SnakeGame:
         HEIGHT_SNAKE = args.height // 2
         self.__key_clicked = None
         self.score = 0
-        self.__snake = Snake([(WIDTH_SNAKE,HEIGHT_SNAKE - 2),(WIDTH_SNAKE,HEIGHT_SNAKE - 1), (WIDTH_SNAKE,HEIGHT_SNAKE)])
+        self.__debug = args.debug
+        self.__snake = Snake([(WIDTH_SNAKE,HEIGHT_SNAKE - 2),(WIDTH_SNAKE,HEIGHT_SNAKE - 1), (WIDTH_SNAKE,HEIGHT_SNAKE)], args.debug)
         self.__board = Board(self.__snake.get_location(),args.width, args.height, args.apples, args.walls)
         self.__round = args.rounds
         self.__is_over = (args.rounds == 0)
@@ -44,22 +45,23 @@ class SnakeGame:
     def update_objects(self, move)-> None:
         """ This function updates every object on the board at each turn """
         # Moves snake and check if he's dead
-        snake_head_after_move = make_something_move(self.__snake.get_head(), MOVES[move]) # Get head after move
+        if not self.__debug:
+            snake_head_after_move = make_something_move(self.__snake.get_head(), MOVES[move]) # Get head after move
         # Check if snake is still inside the board
         # ? @amitai Why do we need this?
-        if check_location(self.__board.height, self.__board.width, snake_head_after_move): 
-            need_to_grow = self.__board.board[snake_head_after_move[1]][snake_head_after_move[0]] == "A" # Check if head is on apple
-        
-        snake_status:  dict = self.__snake.move_snake(move) #move first before tell him to grow if needed
+            if check_location(self.__board.height, self.__board.width, snake_head_after_move): 
+                need_to_grow = self.__board.board[snake_head_after_move[1]][snake_head_after_move[0]] == "A" # Check if head is on apple
+
+            snake_status:  dict = self.__snake.move_snake(move) #move first before tell him to grow if needed
         # Update snake location on board, check if snake is dead
-        if self.__board.place_snake([snake_status["old_loc"]], snake_status["new_loc"]) == "DEAD" or snake_status["is_dead"]:
-            self.__is_over = True
-            return
+            if self.__board.place_snake([snake_status["old_loc"]], snake_status["new_loc"]) == "DEAD" or snake_status["is_dead"]:
+                self.__is_over = True
+                return
         # Check if snake needs to grow and updates score
-        if need_to_grow:
-            self.__snake.growing()
-            self.__board.apples_on_board -= 1
-            self.add_score()
+            if need_to_grow:
+                self.__snake.growing()
+                self.__board.apples_on_board -= 1
+                self.add_score()
         # Add aples, move walls and stuff
         if self.__round_current == 1:
             wall_to_place = self.__board.place_walls()

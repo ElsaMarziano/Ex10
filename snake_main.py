@@ -31,5 +31,3 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     print("done", game.is_over())
 
 
-    
-# TODO When creating snake, directly give the list of coordinates he's in

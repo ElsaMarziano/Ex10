@@ -10,9 +10,9 @@ import copy
 # TODO i changed get_wall_locations
 
 class Snake:
-    def __init__(self, locations: list):
-        self.__size: int = SNAKE_SIZE
-        self.__location: list = locations # Head is always the last coordinate (index -1)
+    def __init__(self, locations: list, debug):
+        self.__size: int = SNAKE_SIZE if not debug else 0
+        self.__location: list = locations if not debug else [] # Head is always the last coordinate (index -1)
         self.__need_to_grow = 0
         
     def move_snake(self, direction: str = "Up"):
