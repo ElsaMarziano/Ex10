@@ -32,6 +32,8 @@ class Board:
             # Check if the coordinate received is inside the limits of the board
             if check_location(self.height, self.width, middle_location):
                 for location in wall.get_wall_locations():
+                    if not check_location(self.height, self.width, location):
+                        return  # check if there is enough space for all the wall when added
                     # If wall appears on snake, return
                     if check_location(self.height, self.width, location) :
                         if self.board[location[1]][location[0]] == "S":
