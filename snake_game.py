@@ -1,15 +1,15 @@
 from typing import Optional
 from game_display import GameDisplay
 import math
-from classes.board import  Board
-from classes.snake import Snake
+from board import  Board
+from snake import Snake
 from game_utils import get_random_apple_data
-from classes.wall import Wall
+from wall import Wall
 from game_utils import get_random_wall_data
-from helper.constants import COLORS, MOVES
-from helper.helper import check_direction
-from helper.helper import make_something_move
-from helper.helper import check_location
+from constants import COLORS, MOVES
+from helper import check_direction
+from helper import make_something_move
+from helper import check_location
 
 
 
@@ -33,7 +33,7 @@ class SnakeGame:
         self.__snake = Snake([(WIDTH_SNAKE,HEIGHT_SNAKE - 2),(WIDTH_SNAKE,HEIGHT_SNAKE - 1), (WIDTH_SNAKE,HEIGHT_SNAKE)])
         self.__board = Board(self.__snake.get_location(),args.width, args.height, args.apples, args.walls)
         self.__round = args.rounds
-        self.__is_over = False
+        self.__is_over = (args.rounds == 0)
         self.__round_current = 1
 
 
@@ -62,10 +62,12 @@ class SnakeGame:
             self.add_score()
         # Add aples, move walls and stuff
         if self.__round_current == 1:
-            self.__board.place_walls()
+            wall_to_place = self.__board.place_walls()
         else:
             self.__board.move_walls_in_board()  # advance wall
-            self.__board.place_walls()
+            wall_to_place = self.__board.place_walls()
+
+
 
         if self.__board.snake_hits_wall(self.__snake):
             self.__is_over = True
@@ -73,7 +75,9 @@ class SnakeGame:
 
         if self.__round % 2 == 0:
             self.__board.add_wall(Wall())
-            
+        if wall_to_place != 0:
+            for wall in range(wall_to_place):
+                self.__board.add_wall(Wall())
         self.__board.place_walls()
         self.__board.add_apple(get_random_apple_data())
         

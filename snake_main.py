@@ -2,8 +2,8 @@ import argparse
 import game_utils
 from snake_game import SnakeGame
 from game_display import GameDisplay
-from helper.constants import MOVES
-from helper.helper import make_something_move
+from constants import MOVES
+from helper import make_something_move
 
 def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     # INIT OBJECTS
