@@ -35,9 +35,8 @@ class Board:
                     if not check_location(self.height, self.width, location):
                         return  # check if there is enough space for all the wall when added
                     # If wall appears on snake, return
-                    if check_location(self.height, self.width, location) :
-                        if self.board[location[1]][location[0]] == "S":
-                            return
+                    if self.board[location[1]][location[0]] != "_":
+                        return
                 self.__wall_list.append(wall)  # do you append a wall if middle c
 
 
