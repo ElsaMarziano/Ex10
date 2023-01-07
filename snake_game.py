@@ -38,13 +38,14 @@ class SnakeGame:
         self.__round_current = 1
 
 
-
     def read_key(self, key_clicked: Optional[str])-> None:
         self.__key_clicked = key_clicked
+
 
     def update_objects(self, move)-> None:
         """ This function updates every object on the board at each turn """
         # Moves snake and check if he's dead
+        if self.__is_over: return
         if not self.__debug:
             snake_head_after_move = make_something_move(self.__snake.get_head(), MOVES[move]) # Get head after move
         # Check if snake is still inside the board
@@ -56,9 +57,8 @@ class SnakeGame:
         # Update snake location on board, check if snake is dead
             if self.__board.place_snake([snake_status["old_loc"]], snake_status["new_loc"]) == "DEAD" or snake_status["is_dead"]:
                 self.__is_over = True
-                return
         # Check if snake needs to grow and updates score
-            if need_to_grow:
+            if need_to_grow and not self.__is_over:
                 self.__snake.growing()
                 self.__board.apples_on_board -= 1
                 self.add_score()
@@ -71,9 +71,9 @@ class SnakeGame:
 
 
 
-        if self.__board.snake_hits_wall(self.__snake):
+        if self.__board.snake_hits_wall(self.__snake) and not self.__is_over:
             self.__is_over = True
-            return
+            
 
         if self.__round % 2 == 0:
             self.__board.add_wall(Wall())

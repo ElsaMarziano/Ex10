@@ -18,13 +18,26 @@ class Board:
         self.width: int = width 
         self.height: int = height
         
-        
+       
     def create_board(self, width, height, snake_locations):
         """ This function creates the board on the very first time """
         my_board = [[("_" if (col, line) not in snake_locations else "S") for col in range(width)] for line in range(height)]
         return my_board
         
         
+# =============== APPLE FUNCTION =================
+
+    def add_apple(self, location: tuple):
+        """ This function tries to add an apple """
+        if self.apples_on_board < self.__max_apples:
+            if check_location(self.height, self.width, location):  # check if apple in limit of the board
+                if self.board[location[1]][location[0]] == "_":  # fall on empty place
+                    self.apples_on_board += 1
+                    self.board[location[1]][location[0]] = "A"
+                    
+                    
+#===================== WALL FUNCTION ========================
+
     def add_wall(self, wall: Wall):  # only add wall,not place them
         """ This function adds a new wall to the wall_list """
         if len(self.__wall_list) < self.__max_walls:
@@ -34,20 +47,10 @@ class Board:
                 for location in wall.get_wall_locations():
                     if not check_location(self.height, self.width, location):
                         return  # check if there is enough space for all the wall when added
-                    # If wall appears on snake, return
+                    # If wall appears on snake or apple, return
                     if self.board[location[1]][location[0]] != "_":
                         return
                 self.__wall_list.append(wall)  # do you append a wall if middle c
-
-
-    def add_apple(self, location: tuple):
-        """ This function tries to add an apple """
-        if self.apples_on_board < self.__max_apples:
-            if check_location(self.height, self.width, location):  # check if apple in limit of the board
-                if self.board[location[1]][location[0]] == "_":  # fall on empty place
-                    self.apples_on_board += 1
-                    self.board[location[1]][location[0]] = "A"
-
 
 
     def move_walls_in_board(self):
@@ -58,7 +61,6 @@ class Board:
                 if check_location(self.height, self.width, loc):
                     self.board[loc[1]][loc[0]] = "_"
             wall.move_wall()
-
 
 
     def place_walls(self):
@@ -86,6 +88,9 @@ class Board:
     # For place_walls: maybe go over the locations of each wall, if one of them is in the board get out of the for loop,
     # else continue until we get to the last location and then remove wall
 
+
+
+# ======================== SNAKE FUNCTION ================================
 
     def place_snake(self, old_locations: list, new_loc: tuple = None):
         """ This function updates the snake's location """
