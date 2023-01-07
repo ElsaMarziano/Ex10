@@ -34,6 +34,7 @@ class SnakeGame:
         self.__board = Board(self.__snake.get_location(),args.width, args.height, args.apples, args.walls)
         self.__round = args.rounds
         self.__is_over = False
+        self.__round_current = 1
 
 
 
@@ -60,9 +61,12 @@ class SnakeGame:
             self.__board.apples_on_board -= 1
             self.add_score()
         # Add aples, move walls and stuff
-        self.__board.move_walls_in_board() # advance wall
-        self.__board.place_walls() 
-        
+        if self.__round_current == 1:
+            self.__board.place_walls()
+        else:
+            self.__board.move_walls_in_board()  # advance wall
+            self.__board.place_walls()
+
         if self.__board.snake_hits_wall(self.__snake):
             self.__is_over = True
             return
@@ -93,6 +97,7 @@ class SnakeGame:
                     gd.draw_cell(width, height, COLORS[color])
 
     def end_round(self) -> None:
+        self.__round_current += 1
         if self.__round <= -1:
             self.__round -= 1
             return
