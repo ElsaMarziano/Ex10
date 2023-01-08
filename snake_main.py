@@ -13,6 +13,7 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     game.draw_board(gd)
     # END OF ROUND 0
     prev_move = "Up"
+    #gd.end_round()
     while not game.is_over():
         gd.show_score(game.score)
         # CHECK KEY CLICKS
@@ -23,7 +24,8 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
             key_clicked = prev_move
         game.update_objects(key_clicked)
         prev_move = key_clicked if key_clicked else prev_move
-
+        # DRAW BOARD
+        game.draw_board(gd)
         # WAIT FOR NEXT ROUND:
         game.end_round()
         gd.end_round()

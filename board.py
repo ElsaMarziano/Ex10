@@ -45,11 +45,11 @@ class Board:
             # Check if the coordinate received is inside the limits of the board
             if check_location(self.height, self.width, middle_location):
                 for location in wall.get_wall_locations():
-                    if not check_location(self.height, self.width, location):
-                        return  # check if there is enough space for all the wall when added
+                    if check_location(self.height, self.width, location):
+                        #pass  # check if there is enough space for all the wall when added
                     # If wall appears on snake or apple, return
-                    if self.board[location[1]][location[0]] != "_":
-                        return
+                        if self.board[location[1]][location[0]] != "_":
+                            return
                 self.__wall_list.append(wall)  # do you append a wall if middle c
 
 

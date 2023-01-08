@@ -33,7 +33,6 @@ class Snake:
         
         if new_head in self.__location[0:-1]: # If the snake hurts himself, you lose
             is_dead = True
-        
         return {"is_dead": is_dead, "old_loc": old_loc, "new_loc": new_head}
         
     def update_size(self, coordinate):
@@ -50,6 +49,7 @@ class Snake:
         ''' This function returns the coordinates of the head and "neck" of the snake - that is, all of the coordinates
         who will kill the snake if a wall touches them '''
         return self.__location[-1:-3:-1]
+    
     
     def get_location(self):
         return self.__location
