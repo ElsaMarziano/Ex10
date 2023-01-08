@@ -13,7 +13,6 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     game.draw_board(gd)
     # END OF ROUND 0
     prev_move = "Up"
-    #gd.end_round()
     while not game.is_over():
         gd.show_score(game.score)
         if game.round_current == 0:

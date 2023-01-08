@@ -50,10 +50,9 @@ class SnakeGame:
         if not self.__debug and self.round_current > 0:
             snake_head_after_move = make_something_move(self.__snake.get_head(), MOVES[move]) # Get head after move
         # Check if snake is still inside the board
-        # ? @amitai Why do we need this?
             need_to_grow = 0
             if check_location(self.__board.height, self.__board.width, snake_head_after_move): 
-                need_to_grow = self.__board.board[snake_head_after_move[1]][snake_head_after_move[0]] == "A" # Check if head is on apple
+                need_to_grow = (self.__board.board[snake_head_after_move[1]][snake_head_after_move[0]] == "A") # Check if head is on apple
             
             snake_status: dict = self.__snake.move_snake(move) #move first before tell him to grow if needed
         # Update snake location on board, check if snake is dead
@@ -71,16 +70,14 @@ class SnakeGame:
             self.__board.move_walls_in_board()  # advance wall
             wall_to_place = self.__board.place_walls()
 
-
-
         if self.__board.snake_hits_wall(self.__snake) and not self.__is_over:
             self.__is_over = True
             
 
-        self.__board.add_wall(Wall())
-        if wall_to_place != 0:
-            for wall in range(wall_to_place):
-                self.__board.add_wall(Wall())
+        #if wall_to_place > 0:
+        #    for _ in range(wall_to_place):
+        #        self.__board.add_wall(Wall(get_random_wall_data()))
+        self.__board.add_wall(Wall(get_random_wall_data()))
         self.__board.place_walls()
         self.__board.add_apple(get_random_apple_data())
         
@@ -98,6 +95,7 @@ class SnakeGame:
 
 
     def end_round(self) -> None:
+        """ This function  updates current row """
         self.round_current += 1
         if self.__round <= -1:
             self.__round -= 1

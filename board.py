@@ -1,8 +1,7 @@
-import wall as Wall
+from wall import Wall
 from helper import *
 from snake import Snake
-import copy
-from game_utils import get_random_apple_data
+from game_utils import get_random_wall_data, get_random_apple_data
 
 
 class Board:
@@ -13,7 +12,6 @@ class Board:
         self.__wall_list = list()  # current walls on the board
         self.apples_on_board: int = 0  # current apples on the board
         self.__max_walls: int = walls  # num of walls that can exist on board
-        # how we transfer the apples on board from board to board? we need another func
         self.__max_apples: int = apples  # num of apple that can exist on board
         self.width: int = width 
         self.height: int = height
@@ -36,7 +34,7 @@ class Board:
                     self.board[location[1]][location[0]] = "A"
                     
                     
-#===================== WALL FUNCTION ========================
+#===================== WALL FUNCTIONS ========================
 
     def add_wall(self, wall: Wall):  # only add wall,not place them
         """ This function adds a new wall to the wall_list """
@@ -46,11 +44,10 @@ class Board:
             if check_location(self.height, self.width, middle_location):
                 for location in wall.get_wall_locations():
                     if check_location(self.height, self.width, location):
-                        #pass  # check if there is enough space for all the wall when added
-                    # If wall appears on snake or apple, return
+                        # If wall appears on snake or apple, return
                         if self.board[location[1]][location[0]] != "_":
                             return
-                self.__wall_list.append(wall)  # do you append a wall if middle c
+                self.__wall_list.append(wall)
 
 
     def move_walls_in_board(self):
@@ -72,8 +69,8 @@ class Board:
             for location in wall_list_locations:
                 # TODO Try to do this without locations_not_in_board and check for old loc
                 if check_location(self.height, self.width,location):
+                    #* Check if wall is on apple and if so adds one more
                     if self.board[location[1]][location[0]] == "A":
-                        #! @Amitai Is this okay?
                         self.apples_on_board -= 1
                         self.add_apple(get_random_apple_data())
                     self.board[location[1]][location[0]] = "W"
@@ -83,6 +80,7 @@ class Board:
                 # remove the wall that all locations not in board
                 self.__wall_list.remove(wall)
                 wall_to_add += 1
+                #self.add_wall(Wall(get_random_wall_data()))
         return wall_to_add
                 
     # For place_walls: maybe go over the locations of each wall, if one of them is in the board get out of the for loop,
