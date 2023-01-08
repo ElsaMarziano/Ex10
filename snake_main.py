@@ -28,6 +28,5 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
         # WAIT FOR NEXT ROUND:
         game.end_round()
         gd.end_round()
-    print("done", game.is_over())
 
 

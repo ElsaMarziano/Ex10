@@ -123,11 +123,6 @@ class Board:
                 self.place_snake(locations)
 
 
-    #TODO Check if we need this
-    def mirror_board_upside_down(self):
-        # Create a reversed copy of the matrix using slicing
-        reversed_board = copy.deepcopy(self.board)[::-1]
-        return reversed_board
 
 
            

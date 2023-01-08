@@ -34,7 +34,7 @@ class SnakeGame:
         self.__snake = Snake([(WIDTH_SNAKE,HEIGHT_SNAKE - 2),(WIDTH_SNAKE,HEIGHT_SNAKE - 1), (WIDTH_SNAKE,HEIGHT_SNAKE)], args.debug)
         self.__board = Board(self.__snake.get_location(),args.width, args.height, args.apples, args.walls)
         self.__round = args.rounds
-        self.__is_over = (args.rounds == 0)
+        self.__is_over = False
         self.__round_current = 1
 
 
@@ -89,11 +89,7 @@ class SnakeGame:
         self.score += int(math.sqrt(self.__snake.get_size()))
 
 
-    def check_collision(self, head: tuple): #TODO Check if we need this function
-        if head[0] >= self.__board.height or head[0] >= self.__board.width or head[1] <= 0 or head[1] <= 0  :
-            self.__is_over = True
-        if self.__board[head[1]][head[0]] == "W":
-            self.__is_over = True
+    
 
 
     def draw_board(self, gd: GameDisplay) -> None:
