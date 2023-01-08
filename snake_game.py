@@ -45,6 +45,7 @@ class SnakeGame:
     def update_objects(self, move)-> None:
         """ This function updates every object on the board at each turn """
         # Moves snake and check if he's dead
+        wall_to_place = 0
         if self.__is_over and self.__round_current != 0 : return
         if not self.__debug:
             snake_head_after_move = make_something_move(self.__snake.get_head(), MOVES[move]) # Get head after move
@@ -66,7 +67,7 @@ class SnakeGame:
         # Add aples, move walls and stuff
         if self.__round_current <= 1:
             wall_to_place = self.__board.place_walls()
-        else:
+        elif self.__round_current % 2 == 0:
             self.__board.move_walls_in_board()  # advance wall
             wall_to_place = self.__board.place_walls()
 
