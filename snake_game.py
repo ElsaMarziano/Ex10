@@ -32,7 +32,7 @@ class SnakeGame:
         self.score = 0
         self.__debug = args.debug
         self.__snake = Snake([(WIDTH_SNAKE,HEIGHT_SNAKE - 2),(WIDTH_SNAKE,HEIGHT_SNAKE - 1), (WIDTH_SNAKE,HEIGHT_SNAKE)], args.debug)
-        self.__board = Board(self.__snake.get_location(),args.width, args.height, args.apples, args.walls)
+        self.__board = Board(self.__snake.get_location(), args.width, args.height, args.apples, args.walls)
         self.__round = args.rounds
         self.__is_over = False
         self.__round_current = 0
@@ -87,9 +87,6 @@ class SnakeGame:
         
     def add_score(self):
         self.score += int(math.sqrt(self.__snake.get_size()))
-
-
-    
 
 
     def draw_board(self, gd: GameDisplay) -> None:
