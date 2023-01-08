@@ -76,7 +76,7 @@ class SnakeGame:
             self.__is_over = True
             
 
-        if self.__round % 2 == 0:
+        if self.__round_current % 2 == 0:
             self.__board.add_wall(Wall())
         if wall_to_place != 0:
             for wall in range(wall_to_place):
