@@ -35,7 +35,7 @@ class SnakeGame:
         self.__board = Board(self.__snake.get_location(), args.width, args.height, args.apples, args.walls)
         self.__round = args.rounds
         self.__is_over = False
-        self.__round_current = 0
+        self.round_current = 0
 
 
     def read_key(self, key_clicked: Optional[str])-> None:
@@ -47,7 +47,7 @@ class SnakeGame:
         # Moves snake and check if he's dead
         wall_to_place = 0
         if self.__is_over : return
-        if not self.__debug and self.__round_current > 0:
+        if not self.__debug and self.round_current > 0:
             snake_head_after_move = make_something_move(self.__snake.get_head(), MOVES[move]) # Get head after move
         # Check if snake is still inside the board
         # ? @amitai Why do we need this?
@@ -65,9 +65,9 @@ class SnakeGame:
                 self.__board.apples_on_board -= 1
                 self.add_score()
         # Add aples, move walls and stuff
-        if self.__round_current <= 1:
+        if self.round_current <= 1:
             wall_to_place = self.__board.place_walls()
-        elif self.__round_current % 2 == 0:
+        elif self.round_current % 2 == 0:
             self.__board.move_walls_in_board()  # advance wall
             wall_to_place = self.__board.place_walls()
 
@@ -98,7 +98,7 @@ class SnakeGame:
 
 
     def end_round(self) -> None:
-        self.__round_current += 1
+        self.round_current += 1
         if self.__round <= -1:
             self.__round -= 1
             return
