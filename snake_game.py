@@ -50,6 +50,7 @@ class SnakeGame:
             snake_head_after_move = make_something_move(self.__snake.get_head(), MOVES[move]) # Get head after move
         # Check if snake is still inside the board
         # ? @amitai Why do we need this?
+            need_to_grow = 0
             if check_location(self.__board.height, self.__board.width, snake_head_after_move): 
                 need_to_grow = self.__board.board[snake_head_after_move[1]][snake_head_after_move[0]] == "A" # Check if head is on apple
 
@@ -58,7 +59,7 @@ class SnakeGame:
             if self.__board.place_snake([snake_status["old_loc"]], snake_status["new_loc"]) == "DEAD" or snake_status["is_dead"]:
                 self.__is_over = True
         # Check if snake needs to grow and updates score
-            if need_to_grow and not self.__is_over:
+            if not self.__is_over and need_to_grow:
                 self.__snake.growing()
                 self.__board.apples_on_board -= 1
                 self.add_score()

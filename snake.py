@@ -19,7 +19,6 @@ class Snake:
         ''' This function makes the snake move in the desired direction, and handles its grow if needed '''        
         is_dead = False
         old_loc = []
-        locations_to_compare = copy.deepcopy(self.__location)
         current_head = self.__location[-1]
         # Handle snake growth if needed
         if self.__need_to_grow == 0:
@@ -32,7 +31,7 @@ class Snake:
         new_head = make_something_move(current_head, MOVES[direction])
         self.__location.append(new_head)
         
-        if new_head in locations_to_compare: # If the snake hurts himself, you lose
+        if new_head in self.__location[0:-1]: # If the snake hurts himself, you lose
             is_dead = True
         
         return {"is_dead": is_dead, "old_loc": old_loc, "new_loc": new_head}
