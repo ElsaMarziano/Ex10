@@ -8,7 +8,7 @@ class Wall:
     def __init__(self,length: int = 3): # need to check how we get location and movement(i think its one tuple)
         WALL_DATA = get_random_wall_data()
         self.length = length # default is 3
-        self.location = (WALL_DATA[0], WALL_DATA[1]) # middle location, (row,col)
+        self.location = (WALL_DATA[1], WALL_DATA[0]) # middle location, (row,col)
         self.movement = WALL_DATA[2] #"Up","Down","Left","Right"
 
     def get_wall_locations(self):
