@@ -45,11 +45,10 @@ class SnakeGame:
     def update_objects(self, move)-> None:
         """ This function updates every object on the board at each turn """
         # Moves snake and check if he's dead
-        wall_to_place = 0
         if self.__is_over : return
         if not self.__debug and self.round_current > 0:
             snake_head_after_move = make_something_move(self.__snake.get_head(), MOVES[move]) # Get head after move
-        # Check if snake is still inside the board
+        # Check if snake is still inside the board and if he hate an apple - can't check that after because the apple will disappear
             need_to_grow = 0
             if check_location(self.__board.height, self.__board.width, snake_head_after_move): 
                 need_to_grow = (self.__board.board[snake_head_after_move[1]][snake_head_after_move[0]] == "A") # Check if head is on apple
@@ -63,30 +62,29 @@ class SnakeGame:
                 self.__snake.growing()
                 self.__board.apples_on_board -= 1
                 self.add_score()
-        # Add aples, move walls and stuff
+        # Move walls
         if self.round_current <= 1:
-            wall_to_place = self.__board.place_walls()
+            self.__board.place_walls()
         elif self.round_current % 2 == 0:
             self.__board.move_walls_in_board()  # advance wall
-            wall_to_place = self.__board.place_walls()
-
+            self.__board.place_walls()
+            
+        #Check collision
         if self.__board.snake_hits_wall(self.__snake) and not self.__is_over:
             self.__is_over = True
             
-
-        #if wall_to_place > 0:
-        #    for _ in range(wall_to_place):
-        #        self.__board.add_wall(Wall(get_random_wall_data()))
         self.__board.add_wall(Wall(get_random_wall_data()))
         self.__board.place_walls()
         self.__board.add_apple(get_random_apple_data())
         
         
     def add_score(self):
+        """ This function updates the current score """
         self.score += int(math.sqrt(self.__snake.get_size()))
 
 
     def draw_board(self, gd: GameDisplay) -> None:
+        """ This function draw the whole board from scratch """
         for height, _ in enumerate(self.__board.board):
             for width, _ in enumerate(self.__board.board[0]):
                 color = self.__board.board[height][width]

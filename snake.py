@@ -3,12 +3,6 @@ from helper import *
 import copy
 
 
-# TODO i changed constats
-# TODO i changed the order of para that give to snake in snake game, first width and then hight
-# TODO i changed the way board is created
-# TODO i changed change location func
-# TODO i changed get_wall_locations
-
 class Snake:
     def __init__(self, locations: list, debug):
         self.__size: int = SNAKE_SIZE if not debug else 0
@@ -34,6 +28,7 @@ class Snake:
         if new_head in self.__location[0:-1]: # If the snake hurts himself, you lose
             is_dead = True
         return {"is_dead": is_dead, "old_loc": old_loc, "new_loc": new_head}
+        
         
     def update_size(self, coordinate):
         """ This function updates size and location of snake if he got cut in half """
