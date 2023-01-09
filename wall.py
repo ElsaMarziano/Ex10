@@ -5,8 +5,8 @@ from helper import make_something_move
 class Wall:
     """ class of wall default"""
 
-    def __init__(self,length: int = 3): # need to check how we get location and movement(i think its one tuple)
-        WALL_DATA = get_random_wall_data()
+    def __init__(self, location: tuple, length: int = 3): # need to check how we get location and movement(i think its one tuple)
+        WALL_DATA = location
         self.length = length # default is 3
         self.location = (WALL_DATA[0], WALL_DATA[1]) # middle location, (col,row)
         self.movement = WALL_DATA[2] #"Up","Down","Left","Right"
@@ -16,7 +16,6 @@ class Wall:
         list_of_locations = [] #  list with 3 tuples (row,col)
         middle_col = self.location[0] # x
         middle_row = self.location[1] #y
-        # TODO Check if there's a way to do this more effectively with the make_something_move function
         if self.movement == "Right" or self.movement == "Left":
             list_of_locations = [(middle_col -1,middle_row ),(middle_col,middle_row),(middle_col + 1,middle_row )]
         elif self.movement == "Up" or self.movement == "Down":
@@ -28,4 +27,7 @@ class Wall:
     def move_wall(self):
         """ Moves the wall in the right direction """
         self.location = make_something_move(self.location, MOVES[self.movement])
+        
+        
+        
 
