@@ -13,13 +13,14 @@ def main_loop(gd: GameDisplay, args: argparse.Namespace) -> None:
     game.draw_board(gd)
     # END OF ROUND 0
     prev_move = "Up"
+    game.update_objects("Up")
+    game.draw_board(gd)
+    game.end_round()
+    gd.end_round()
+    #gd.end_round()
+
     while not game.is_over():
         gd.show_score(game.score)
-        if game.round_current == 0:
-            game.update_objects("Up")
-            game.draw_board(gd)
-            game.end_round()
-            gd.end_round()
         # CHECK KEY CLICKS
         key_clicked = gd.get_key_clicked()
         game.read_key(key_clicked)

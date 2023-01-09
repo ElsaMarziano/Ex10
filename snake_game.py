@@ -48,8 +48,8 @@ class SnakeGame:
         if self.__is_over : return
         if not self.__debug and self.round_current > 0:
             snake_head_after_move = make_something_move(self.__snake.get_head(), MOVES[move]) # Get head after move
-        # Check if snake is still inside the board and if he hate an apple - can't check that after because the apple will disappear
-            need_to_grow = 0
+        # Check if snake is still inside the board
+            need_to_grow = False
             if check_location(self.__board.height, self.__board.width, snake_head_after_move): 
                 need_to_grow = (self.__board.board[snake_head_after_move[1]][snake_head_after_move[0]] == "A") # Check if head is on apple
             
@@ -75,7 +75,7 @@ class SnakeGame:
             
         self.__board.add_wall(Wall(get_random_wall_data()))
         self.__board.place_walls()
-        self.__board.add_apple(get_random_apple_data())
+        self.__board.add_apple((get_random_apple_data()))
         
         
     def add_score(self):
