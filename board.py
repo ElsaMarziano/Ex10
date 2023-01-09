@@ -2,12 +2,12 @@ from wall import Wall
 from helper import *
 from snake import Snake
 from game_utils import get_random_wall_data, get_random_apple_data
+from constants import WALL_LENGTH
 
 
 class Board:
     # need to add debug and round?
     def __init__(self, snake_locations: list, width: int = 30, height: int = 30, apples: int = 3, walls: int = 2):
-        #TODO do every variable private
         self.board: list = self.create_board(width, height, snake_locations)
         self.__wall_list = list()  # current walls on the board
         self.apples_on_board: int = 0  # current apples on the board
@@ -55,6 +55,7 @@ class Board:
         for wall in self.__wall_list:
             old_location = wall.get_wall_locations()
             for loc in old_location:
+                # Check location is in board
                 if check_location(self.height, self.width, loc):
                     self.board[loc[1]][loc[0]] = "_"
             wall.move_wall()
@@ -76,12 +77,11 @@ class Board:
                     self.board[location[1]][location[0]] = "W"
                 else:
                     locations_not_in_board += 1
-            if locations_not_in_board == wall.length:
+            if locations_not_in_board == WALL_LENGTH:
                 # remove the wall that all locations not in board
                 self.__wall_list.remove(wall)
                 wall_to_add += 1
-                #self.add_wall(Wall(get_random_wall_data()))
-        return wall_to_add
+                return wall_to_add
                 
     # For place_walls: maybe go over the locations of each wall, if one of them is in the board get out of the for loop,
     # else continue until we get to the last location and then remove wall
