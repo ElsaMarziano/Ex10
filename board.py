@@ -6,7 +6,8 @@ from constants import WALL_LENGTH
 
 
 class Board:
-    # need to add debug and round?
+# =============== INIT BOARD FUNCTIONS =====================
+        
     def __init__(self, snake_locations: list, width: int = 30, height: int = 30, apples: int = 3, walls: int = 2):
         self.board: list = self.create_board(width, height, snake_locations)
         self.__wall_list = list()  # current walls on the board
@@ -16,7 +17,6 @@ class Board:
         self.width: int = width 
         self.height: int = height
         
-       
     def create_board(self, width, height, snake_locations):
         """ This function creates the board on the very first time """
         my_board = [[("_" if (col, line) not in snake_locations else "S") for col in range(width)] for line in range(height)]
@@ -62,29 +62,26 @@ class Board:
 
 
     def place_walls(self):
-        """ This function handles the movement of all walls on the board """
-        wall_to_add = 0
+        """ This function handles the movement of all walls on the board
+        and checks which walls went outside the board """
         for wall in self.__wall_list:
             locations_not_in_board = 0
             wall_list_locations = wall.get_wall_locations()
+            # Go over each location and check if they're still inside the board
             for location in wall_list_locations:
-                # TODO Try to do this without locations_not_in_board and check for old loc
                 if check_location(self.height, self.width,location):
-                    #* Check if wall is on apple and if so adds one more
+                    # Check if wall is on apple and if so adds one more
                     if self.board[location[1]][location[0]] == "A":
                         self.apples_on_board -= 1
                         self.add_apple(get_random_apple_data())
-                    self.board[location[1]][location[0]] = "W"
+                    self.board[location[1]][location[0]] = "W" # Update board
                 else:
                     locations_not_in_board += 1
             if locations_not_in_board == WALL_LENGTH:
-                # remove the wall that all locations not in board
+                # If wall is fully outside of board, remove it from list
                 self.__wall_list.remove(wall)
-                wall_to_add += 1
-                return wall_to_add
+
                 
-    # For place_walls: maybe go over the locations of each wall, if one of them is in the board get out of the for loop,
-    # else continue until we get to the last location and then remove wall
 
 
 
