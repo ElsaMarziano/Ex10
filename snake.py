@@ -47,13 +47,17 @@ class Snake:
     
     
     def get_location(self):
+        """get location of snake"""
         return self.__location
 
     def get_head(self):
+        """get location of the head of the snake"""
         return self.__location[-1]
 
     def get_size(self):
+        """get the size of the snake"""
         return self.__size
     
     def growing(self):
+        """tell the snake that he need to grow"""
         self.__need_to_grow += 3

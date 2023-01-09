@@ -73,7 +73,7 @@ class SnakeGame:
         #Check collision
         if self.__board.snake_hits_wall(self.__snake) and not self.__is_over:
             self.__is_over = True
-            
+        #Add a wll and place
         self.__board.add_wall(Wall(get_random_wall_data()))
         self.__board.place_walls()
         self.__board.add_apple((get_random_apple_data()))
@@ -106,4 +106,5 @@ class SnakeGame:
 
 
     def is_over(self) -> bool:
+        """check if game is over"""
         return self.__is_over
