@@ -39,6 +39,7 @@ class SnakeGame:
 
 
     def read_key(self, key_clicked: Optional[str])-> None:
+        """read the key from the user"""
         self.__key_clicked = key_clicked
 
 
